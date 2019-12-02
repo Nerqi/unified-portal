@@ -13,14 +13,35 @@
       <a href="https://www.taobao.com/">重点需求看板</a>
     </div>
     <div class="header-right">
-      <Icon style="cursor:pointer;" type="ios-volume-up" color="#white" v-if="type === 'login'"/>
+      <Poptip trigger="hover">
+        <Icon style="cursor:pointer;" type="ios-volume-up" color="#white" v-if="type === 'login'"/>
+        <div class="content-main" slot="content">
+          <h3>2019-10-19</h3>
+          <p @click="showModel(true)">一级系统测试管理平台上线通知</p>
+          <h3>2019-10-19</h3>
+          <p @click="showModel(true)">评价管理系统上线通知</p>
+        </div>
+      </Poptip>
       <Button type="primary" v-if="type === 'login'" @click="skip('login')" style="margin-right: 1rem; font-size: 0.5em">登陆/注册</Button>
-      <Icon style="cursor:pointer;" type="ios-volume-up" color="#128af6" v-if="type === 'main'"/>
+      <Poptip trigger="hover">
+        <Icon style="cursor:pointer;" type="ios-volume-up" color="#128af6" v-if="type === 'main'"/>
+        <div class="content-main" slot="content">
+          <h3>2019-10-19</h3>
+          <p @click="showModel(true)">一级系统测试管理平台上线通知</p>
+          <h3>2019-10-19</h3>
+          <p @click="showModel(true)">评价管理系统上线通知</p>
+        </div>
+      </Poptip>
       <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="type === 'main'"/>
       <Icon style="cursor:pointer;" type="md-person" color="#128af6" v-if="type === 'main'"/>
       <p v-if="type === 'main'" style="font-size: 0.5em">测试账号（集团一级系统)</p>
       <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="skip('out')"/>
     </div>
+    <Modal v-model="model" @on-cancel="showModel(false)" footer-hide>
+      <p style="margin-top: 1rem">一级系统测试管理平台于2019-10-30 20:00进行升级上线，请勿进行任何操作！</p>
+      <p style="margin-top: 1rem">一级系统测试管理平台本次上线新增IP到期提醒</p>
+      <p style="margin-top: 1rem">一级系统测试管理平台本次上线新增云存储到期提醒</p>
+    </Modal>
   </div>
 </template>
 <script>
@@ -34,6 +55,7 @@ export default {
   },
   data () {
     return {
+      model: false
     }
   },
   mounted() {
@@ -48,6 +70,9 @@ export default {
       if (type === 'out') {
         this.$router.push({ name: 'login' })
       }
+    },
+    showModel(value) {
+      this.model = value
     }
   }
 }
@@ -139,6 +164,15 @@ export default {
       justify-content: flex-end;
       color: white;
       font-size: 1.5em;
+      .content-main{
+        color: #000c17;
+        h3{
+          margin-top: 0.3rem;
+        }
+        p{
+          cursor: pointer;
+        }
+      }
     }
   }
 </style>

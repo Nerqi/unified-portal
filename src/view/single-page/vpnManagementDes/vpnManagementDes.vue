@@ -1,6 +1,6 @@
 <template>
   <div class="vpnManagementDes-main">
-    <div class="title">请使用IE或360浏览器登录<a style="color: #5656ff; cursor:pointer" href="https://www.taobao.com/">一级系统测试管理平台</a></div>
+    <div class="title">请使用IE或360浏览器登录<a style="color: rgb(189, 78, 78); cursor:pointer" href="https://www.taobao.com/">一级系统测试管理平台</a></div>
     <div class="main">
       <Row class="row-single">
         <Col span="8" class="left-row">
