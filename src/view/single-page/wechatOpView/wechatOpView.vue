@@ -1,6 +1,5 @@
 <template>
   <div class="wechatOpView-main">
-    微信企业号操作说明查看(图片)
     <div class="img"></div>
   </div>
 </template>
@@ -24,10 +23,12 @@ export default {
 
 <style lang="less">
   .wechatOpView-main{
+    padding-top: 2rem;
+    padding-left: 2rem;
     .img{
       width: 70%;
       height: 40rem;
-      background-image: url(../../../assets/images/talkingdata.png);
+      background-image: url(../../../assets/images/wechatOpView.png);
       background-repeat: no-repeat;
       background-size:100% 100%;
     }

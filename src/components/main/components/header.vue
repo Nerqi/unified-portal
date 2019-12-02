@@ -45,6 +45,7 @@
   </div>
 </template>
 <script>
+  // import services from '../../../api/services'
 export default {
   name: 'HeaderBar',
   props: {
@@ -70,6 +71,10 @@ export default {
       if (type === 'out') {
         this.$router.push({ name: 'login' })
       }
+      // let tmp = {
+      //   phoneNum: '13596459384'
+      // }
+      // this.$http.post(services.getValidation.getValidation, tmp).then(res => {}) // demo接口
     },
     showModel(value) {
       this.model = value
@@ -90,8 +95,8 @@ export default {
       margin-left: 0.5rem;
       align-items: center;
       .header-left-img{
-        height: 95%;
-        width: 30%;
+        height: 5rem;
+        width: 5rem;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         background-image: url(../../../assets/images/yidong.png);

@@ -1,6 +1,6 @@
 <template>
   <div class="IPAddressDes-main">
-    <div class="title">请使用IE或360浏览器登录<a style="color: rgb(189, 78, 78); cursor:pointer" href="https://www.taobao.com/">一级系统测试管理平台</a></div>
+    <div class="title">请使用IE或360浏览器登录<a style="color: rgb(0, 29, 255); cursor:pointer" href="https://www.taobao.com/">一级系统测试管理平台</a></div>
     <div class="main">
       <Row class="row-single">
         <Col span="8" class="left-row">
@@ -106,8 +106,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      background-image: url(../../../assets/images/talkingdata.png);
+      color: black;
+      background-image: url(../../../assets/images/main-title.png);
       background-repeat: no-repeat;
       background-size:100% 100%;
       margin-bottom: 1rem;
