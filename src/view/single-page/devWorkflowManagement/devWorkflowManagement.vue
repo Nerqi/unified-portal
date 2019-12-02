@@ -104,7 +104,6 @@ export default {
     .tap-main{
       height: 70%;
       width: 100%;
-      background-color: bisque;
       text-align: center;
       .demand-management{
         height: 95%;

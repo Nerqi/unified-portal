@@ -26,7 +26,9 @@
         </Card>
       </Col>
     </Row>
-    <div class="img"><h1>工作量管理（图片）</h1></div>
+    <div class="tap-main">
+      <div class="img"></div>
+    </div>
   </div>
 </template>
 
@@ -59,7 +61,6 @@ export default {
           width: 100%;
           height: 100%;
           box-shadow: 13px -20px 20px 20px rgba(0, 0, 0, 0.3);
-          cursor: pointer;
         }
         .card-double{
           width: 100%;
@@ -70,17 +71,17 @@ export default {
         }
       }
     }
-    .card-route{
-      position: absolute;
-      bottom: 12px;
-      color: #0000ff;
-      cursor: pointer;
-    }
-    .img{
+    .tap-main{
       height: 70%;
       width: 100%;
-      background-color: bisque;
       text-align: center;
+      .img{
+        height: 95%;
+        width: 100%;
+        background-image: url("../../../assets/images/workloadMgt1.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
     }
   }
 </style>

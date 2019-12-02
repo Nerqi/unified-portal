@@ -51,13 +51,11 @@ export default {
         .card-single{
           width: 100%;
           height: 100%;
-          cursor: pointer;
         }
         .card-double{
           width: 100%;
           height: 100%;
           background-color: #d2e7fd;
-          cursor: pointer;
         }
       }
     }
