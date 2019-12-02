@@ -5,23 +5,14 @@ import App from './App'
 import router from './router'
 import store from './store'
 import iView from 'iview'
-import i18n from '@/locale'
 import config from '@/config'
 import importDirective from '@/directive'
 import { directive as clickOutside } from 'v-click-outside-x'
 import installPlugin from '@/plugin'
 import './index.less'
 import '@/assets/icons/iconfont.css'
-import TreeTable from 'tree-table-vue'
-import VOrgTree from 'v-org-tree'
-import 'v-org-tree/dist/v-org-tree.css'
 import { HttpPlugin } from '../src/libs/http'
-
-Vue.use(iView, {
-  i18n: (key, value) => i18n.t(key, value)
-})
-Vue.use(TreeTable)
-Vue.use(VOrgTree)
+Vue.use(iView)
 Vue.use(HttpPlugin)
 /**
  * @description 注册admin内置插件
@@ -45,7 +36,6 @@ Vue.directive('clickOutside', clickOutside)
 new Vue({
   el: '#app',
   router,
-  i18n,
   store,
   render: h => h(App)
 })
