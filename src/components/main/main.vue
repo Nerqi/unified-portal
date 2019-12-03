@@ -29,57 +29,57 @@
   </Layout>
 </template>
 <script>
-import HeaderBar from './components/header'
-import FooterBar from '../../components/main/components/footer'
-import Menu from './menu'
-export default {
-  name: 'Main',
-  components: {
-    HeaderBar,
-    FooterBar
-  },
-  data () {
-    return {
-      type: 'main',
-      activeName: '',
-      openName: [],
-      fullHeight: (document.documentElement.clientHeight + 50) + 'px',
-      menuWidth: (document.documentElement.clientWidth * (4 / 30)) + 'px',
-      // headerHeight: (document.documentElement.clientHeight * (2 / 15)) + 'px',
-      headerHeight: 5 + 'rem',
-      foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px',
-      fullWidth: document.documentElement.clientWidth + 'px'
-    }
-  },
-  computed: {
-    menu_list() {
-      return Menu
-    }
-  },
-  watch: {
-    '$route' (newRoute) {
-      let tmp = newRoute.name.split('-')
-      if (tmp[0] === 'url') {
-        this.openName = ['url']
-      } else {
-        this.openName = []
+  import HeaderBar from './components/header'
+  import FooterBar from '../../components/main/components/footer'
+  import Menu from './menu'
+  export default {
+    name: 'Main',
+    components: {
+      HeaderBar,
+      FooterBar
+    },
+    data () {
+      return {
+        type: 'main',
+        activeName: '',
+        openName: [],
+        fullHeight: (document.documentElement.clientHeight + 50) + 'px',
+        menuWidth: (document.documentElement.clientWidth * (4 / 30)) + 'px',
+        // headerHeight: (document.documentElement.clientHeight * (2 / 15)) + 'px',
+        headerHeight: 5 + 'rem',
+        foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px',
+        fullWidth: document.documentElement.clientWidth + 'px'
       }
-      this.$nextTick(() => this.$refs.menu.updateOpened())
-      if (newRoute.name !== 'accountManagement' && newRoute.name !== 'resourceManagement' && newRoute.name !== 'demandManagement') {
-        this.activeName = newRoute.name
+    },
+    computed: {
+      menu_list() {
+        return Menu
       }
-    }
-  },
-  created() {
-    this.activeName = 'userGuide'
-  },
-  mounted () {},
-  methods: {
-    handleSelect (name) {
-      this.$router.push({ name: name })
+    },
+    watch: {
+      '$route' (newRoute) {
+        let tmp = newRoute.name.split('-')
+        if (tmp[0] === 'url') {
+          this.openName = ['url']
+        } else {
+          this.openName = []
+        }
+        this.$nextTick(() => this.$refs.menu.updateOpened())
+        if (newRoute.name !== 'accountManagement' && newRoute.name !== 'resourceManagement' && newRoute.name !== 'demandManagement') {
+          this.activeName = newRoute.name
+        }
+      }
+    },
+    created() {
+      this.activeName = 'userGuide'
+    },
+    mounted () {},
+    methods: {
+      handleSelect (name) {
+        this.$router.push({ name: name })
+      }
     }
   }
-}
 </script>
 <style lang="less">
   .layout{

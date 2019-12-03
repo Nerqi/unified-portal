@@ -92,6 +92,12 @@
         <Table v-if="table_nav === 3" :columns="important_columns" :data="important_data" border></Table>
         <!-- <iframe  v-if="table_nav === 3" src="https://www.taobao.com/" width="100%" height="98%" frameborder="0" scrolling="auto"></iframe> -->
         <Table v-if="table_nav === 4" :columns="physical_columns" :data="physical_data" border></Table>
+        <div class="virtual-columns-get" v-if="table_nav === 5">
+          <p>项目组：</p>
+          <Select style="width:200px">
+            <Option v-for="item in projectList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+          </Select>
+        </div>
         <Table v-if="table_nav === 5" :columns="virtual_columns" :data="virtual_data" border></Table>
         <Table v-if="table_nav === 6" :columns="demand_info_columns" :data="demand_info_data" border></Table>
       </div>
@@ -152,6 +158,9 @@ export default {
     },
     important_data() {
       return demo_list.important_data
+    },
+    projectList() {
+      return [ { 'name': '一级测试开发平台', 'key': 1 }, { 'name': '内容计费', 'key': 2 }, { 'name': '4A', 'key': 3 }, { 'name': '网状网', 'key': 4 } ]
     }
   },
   mounted () {
@@ -327,6 +336,13 @@ export default {
         background: white;
         overflow-y:auto;
         border: 1px solid #f4f1f1;
+        .virtual-columns-get{
+          height: 2rem;
+          padding-top: 0.5rem;
+          margin-bottom: 1rem;
+          padding-left: 0.5rem;
+          display: flex;
+        }
         .list-group{
           font-size: 0.8em;
           margin-left: 1rem;

@@ -52,20 +52,20 @@
 </template>
 
 <script>
-export default {
-  name: 'storageDes',
-  components: {
-  },
-  data () {
-    return {
+  export default {
+    name: 'storageDes',
+    components: {
+    },
+    data () {
+      return {
+      }
+    },
+    mounted () {
+      //
+    },
+    methods: {
     }
-  },
-  mounted () {
-    //
-  },
-  methods: {
   }
-}
 </script>
 
 <style lang="less">
@@ -96,37 +96,37 @@ export default {
       }
       .row-single{
         margin-top: 1rem;
-       .left-row {
-        background-color: #d8dde0;
-      }
-      .center-row {
-        background-color: #caced0;
-      }
-      .right-row {
-         background-color: #caced0db;
-      }
-      .main-item {
-        width: 100%;
-        display: flex;
-      }
+        .left-row {
+          background-color: #d8dde0;
+        }
+        .center-row {
+          background-color: #caced0;
+        }
+        .right-row {
+          background-color: #caced0db;
+        }
+        .main-item {
+          width: 100%;
+          display: flex;
+        }
       }
       .row-double{
         margin-top: 1rem;
         .left-row {
-        background-color: #DEF5FB;
-      }
-      .center-row {
-        background-color:#D2EFFB ;
-      }
-      .right-row {
-        background-color: #caecf6 ;
-      }
+          background-color: #DEF5FB;
+        }
+        .center-row {
+          background-color:#D2EFFB ;
+        }
+        .right-row {
+          background-color: #caecf6 ;
+        }
 
-      .main-item {
-        width: 100%;
-        // background-color: #bcd9f1;
-        display: flex;
-      }
+        .main-item {
+          width: 100%;
+          // background-color: #bcd9f1;
+          display: flex;
+        }
       }
       .center-row{
         display: flex;

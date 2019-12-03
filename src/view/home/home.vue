@@ -15,16 +15,14 @@
                 <h1 style="margin-top: 1.5rem; margin-left: 8rem">资源管理</h1>
               </div>
             </div>
-            <!--<img src="../../assets/images/swip1.png" class="img-xys" :style="{height: imgHeight}"/>-->
           </CarouselItem>
           <CarouselItem class="demo-carousel">
             <div class="img-xys2" :style="{height: imgHeight}">
-              <div class="img-xys2-text">
-                <h1 style="margin-left: 8rem">统计分析</h1>
-                <h1 style="margin-left: 12rem">综合评价</h1>
-              </div>
+              <!--<div class="img-xys2-text">-->
+                <!--<h1 style="margin-left: 8rem">统计分析</h1>-->
+                <!--<h1 style="margin-left: 12rem">综合评价</h1>-->
+              <!--</div>-->
             </div>
-            <!--<img src="../../assets/images/swip2.jpg" class="img-xys" :style="{height: imgHeight}"/>-->
           </CarouselItem>
           <CarouselItem class="demo-carousel">
             <div class="img-xys3" :style="{height: imgHeight}">
@@ -33,7 +31,6 @@
                 <h3 style="margin-left: 8rem"> 测试资源集中化管理、合理分配、监控预警</h3>
               </div>
             </div>
-            <!--<img src="../../assets/images/swip3.jpg" class="img-xys" :style="{height: imgHeight}"/>-->
           </CarouselItem>
           <CarouselItem class="demo-carousel">
             <div class="img-xys4" :style="{height: imgHeight}">
@@ -42,7 +39,6 @@
                 <h1 style="margin-left: 60rem; margin-top: 8rem">移动办公</h1>
               </div>
             </div>
-            <!--<img src="../../assets/images/swip4.png" class="img-xys" :style="{height: imgHeight}"/>-->
           </CarouselItem>
         </Carousel>
       <div class="content-main">
@@ -124,7 +120,7 @@ export default {
             }
           }
           .img-xys2{
-            background-image: url("../../assets/images/swip2.jpg");
+            background-image: url("../../assets/images/swip2.png");
             background-repeat: no-repeat;
             background-size: 100% 100%;
             width: 100%;
