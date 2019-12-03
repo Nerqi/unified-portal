@@ -19,7 +19,7 @@
           <div class="circle">6</div>
         </div>
         <div class="orderNum-item">
-          <p>待完结工单</p>
+          <p>我的资源</p>
           <div class="circle">0</div>
         </div>
         <div class="orderNum-item">
@@ -89,7 +89,8 @@
             <p>{{item.A}}  ： {{item.B}}</p>
           </li>
         </ul>
-        <iframe  v-if="table_nav === 3" src="https://www.taobao.com/" width="100%" height="98%" frameborder="0" scrolling="auto"></iframe>
+        <Table v-if="table_nav === 3" :columns="important_columns" :data="important_data" border></Table>
+        <!-- <iframe  v-if="table_nav === 3" src="https://www.taobao.com/" width="100%" height="98%" frameborder="0" scrolling="auto"></iframe> -->
         <Table v-if="table_nav === 4" :columns="physical_columns" :data="physical_data" border></Table>
         <Table v-if="table_nav === 5" :columns="virtual_columns" :data="virtual_data" border></Table>
         <Table v-if="table_nav === 6" :columns="demand_info_columns" :data="demand_info_data" border></Table>
@@ -145,6 +146,12 @@ export default {
     },
     demand_info_data() {
       return demo_list.demand_info_data
+    },
+    important_columns(){
+       return demo_list.important_columns
+    },
+    important_data(){
+      return demo_list.important_data
     }
   },
   mounted () {

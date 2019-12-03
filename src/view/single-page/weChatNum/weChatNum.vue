@@ -79,11 +79,15 @@ export default {
         .card-single{
           width: 100%;
           height: 100%;
+          background-color:rgba(87, 92, 127, 1);
+          color: #fff;
+          p{
+            color: #fff;
+          }
         }
         .card-double{
           width: 100%;
           height: 100%;
-          background-color: #d2e7fd;
         }
       }
     }

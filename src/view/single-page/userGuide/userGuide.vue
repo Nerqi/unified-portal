@@ -131,7 +131,11 @@ export default {
       .card-double{
         width: 100%;
         height: 100%;
-        background-color: #d2e7fd;
+        background-color:rgba(87, 92, 127, 1);
+        color: #fff;
+       p{
+         color: #fff;
+        }
       }
     }
   }
@@ -139,7 +143,7 @@ export default {
     position: absolute;
     bottom: 12px;
     width: 80%;
-    color: #0000ff;
+    color: #57a3f3;
     cursor: pointer;
     display: flex;
     justify-content: space-between;

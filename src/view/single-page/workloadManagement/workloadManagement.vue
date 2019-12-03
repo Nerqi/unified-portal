@@ -60,14 +60,18 @@ export default {
         .card-single{
           width: 100%;
           height: 100%;
+          background-color:rgba(87, 92, 127, 1);
+          color: #fff;
           box-shadow: 13px -20px 20px 20px rgba(0, 0, 0, 0.3);
+           p{
+            color: #fff;
+          }
         }
         .card-double{
           width: 100%;
           height: 100%;
-          background-color: #d2e7fd;
           box-shadow: 15px -20px 14px 20px rgba(0, 0, 0, 0.3);
-          cursor: pointer;
+          cursor: pointer;        
         }
       }
     }

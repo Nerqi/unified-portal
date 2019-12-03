@@ -265,6 +265,132 @@ const demand_info_data = [
     T: '项目组'
   }
 ]
+const important_columns = [
+  {
+    title: '需求编号',
+    key: 'I',
+    align: 'center'
+  },
+  {
+    title: '需求名称',
+    align: 'center',
+    key: 'A'
+  },
+  {
+    title: '需求类型',
+    align: 'center',
+    key: 'B'
+  },
+  {
+    title: '需求阶段',
+    align: 'center',
+    key: 'C'
+  },
+  {
+    title: '当前执行人',
+    align: 'center',
+    key: 'D'
+  },
+  {
+    title: '创建时间',
+    align: 'center',
+    key: 'E'
+  },
+  {
+    title: '预估工时',
+    align: 'center',
+    key: 'F'
+  },
+  {
+    title: '需求来源',
+    align: 'center',
+    key: 'G'
+  },
+  {
+    title: '计划完成时间',
+    align: 'center',
+    key: 'H'
+  },
+  {
+    title: '计划上线时间',
+    align: 'center',
+    key: 'T'
+  }
+]
+const important_data = [
+  {
+    I: 'TESTREQ20191113110208498',
+    A: '新增DMZ域主机及公网应色号地址管理功能',
+    B: '系统需求',
+    C: '需求计划',
+    D: '李缅',
+    E: '2019-11-13 11:02:08',
+    F: '130',
+    G: '北京业务支撑中心',
+    H: '2019-11-28 00:00:00',
+    T:'2019-11-28 00:00:00'
+  },
+  {
+    I: 'TESTREQ20191021165000508',
+    A: '需求序号037：新增联想网御账号管理功能',
+    B: '系统需求',
+    C: '需求计划',
+    D: '李缅',
+    E: '2019-11-13 11:02:08',
+    F: '234',
+    G: '北京业务支撑中心',
+    H: '2019-11-28 00:00:00',
+    T:'2019-11-28 00:00:00'
+  },
+  {
+    I: 'TESTREQ20191021164909639',
+    A: '需求序号029：增加资源到期提醒和使用记录功能',
+    B: '系统需求',
+    C: '需求开发',
+    D: '刘超',
+    E: '2019-11-13 11:02:08',
+    F: '100',
+    G: '北京业务支撑中心',
+    H: '2019-11-28 00:00:00',
+    T:'2019-11-28 00:00:00'
+  },
+  {
+    I: 'TESTREQ20191021164523919',
+    A: '需求序号034：root密码管理功能',
+    B: '系统需求',
+    C: '需求结束',
+    D: '李缅',
+    E: '2019-11-13 11:02:08',
+    F: '23',
+    G: '北京业务支撑中心',
+    H: '2019-11-28 00:00:00',
+    T:'2019-11-28 00:00:00'
+  },
+  {
+    I: 'TESTREQ20191021164347937',
+    A: '需求序号030：新增主机责任人变更',
+    B: '系统需求',
+    C: '功能测试',
+    D: '王静瑄',
+    E: '2019-11-13 11:02:08',
+    F: '34',
+    G: '北京业务支撑中心',
+    H: '2019-11-28 00:00:00',
+    T:'2019-11-28 00:00:00'
+  },
+  {
+    I: 'TESTREQ20191021163027963',
+    A: '需求序号032：统一门户账号注册和项目组新增功能',
+    B: '系统需求',
+    C: '版本发布',
+    D: '李缅',
+    E: '2019-11-13 11:02:08',
+    F: '55',
+    G: '北京业务支撑中心',
+    H: '2019-11-28 00:00:00',
+    T:'2019-11-28 00:00:00'
+  },
+]
 export default {
   todo_order_list: todo_order_list,
   tofinish_order_list: tofinish_order_list,
@@ -276,5 +402,8 @@ export default {
   virtual_columns: virtual_columns,
   virtual_data: virtual_data,
   demand_info_columns: demand_info_columns,
-  demand_info_data: demand_info_data
+  demand_info_data: demand_info_data,
+  important_data:important_data,
+  important_columns:important_columns
+
 }
