@@ -14,17 +14,17 @@
       <a href="https://www.taobao.com/">Devops</a>
     </div>
     <div class="header-right">
-      <Dropdown @on-click="handleSelect" trigger="hover" @on-visible-change="change">
+      <Dropdown @on-click="handleSelect" trigger="hover" @on-visible-change="visivle">
         <Icon type="ios-list" style="cursor:pointer;" size="35" color="#128af6" v-if="type === 'main'"/>
         <DropdownMenu slot="list" v-for="item in menu_list" :key="item.menu_url">
-          <DropdownItem v-if="!item.children_list" :name="item.menu_url" :selected="item.selected">{{item.menu_name}}</DropdownItem>
+          <DropdownItem v-if="!item.children_list" :name="item.menu_url" :selected="item.selected" ref="list">{{item.menu_name}}</DropdownItem>
           <Dropdown placement="right-start" :name="item.menu_url" v-if="item.children_list">
             <DropdownItem>
               {{item.menu_name}}
               <Icon type="ios-arrow-forward"></Icon>
             </DropdownItem>
             <DropdownMenu slot="list">
-              <DropdownItem :name="item_child.menu_url" v-for="(item_child) in item.children_list" :key="item_child.menu_url" :selected="item_child.selected">{{item_child.menu_name}}</DropdownItem>
+              <DropdownItem :name="item_child.menu_url" v-for="(item_child) in item.children_list" :key="item_child.menu_url" :selected="item_child.selected" ref="list">{{item_child.menu_name}}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </DropdownMenu>
@@ -85,7 +85,7 @@
     },
     watch: {
       '$route' (newRoute) {
-        // this.newRoute = newRoute
+        this.newRoute = newRoute
       }
     },
     mounted() {},
@@ -103,25 +103,15 @@
       handleSelect (name) {
         this.$router.push({ name: name })
       },
-      change() {
-        // console.dir(this.newRoute)
-        // console.dir(this.menu_list)
-        // this.tmp_menu_list = this.menu_list
-        // console.dir(this.tmp_menu_list)
-        // for (let i = 0; i < this.tmp_menu_list.length; i++) {
-        //   if (this.tmp_menu_list[i].menu_url === this.newRoute.name) {
-        //     this.tmp_menu_list[i].selected = true
-        //     return
-        //   }
-        //   if (this.tmp_menu_list[i].children_list && this.tmp_menu_list[i].children_list.length) {
-        //     for (let j = 0; j < this.tmp_menu_list[i].children_list.length; i++) {
-        //       if (this.tmp_menu_list[i].children_list[j].menu_url === this.newRoute.name) {
-        //         this.tmp_menu_list[i].children_list[j].selected = true
-        //         return
-        //       }
-        //     }
-        //   }
-        // }
+      visivle(e) {
+        if (this.newRoute && this.$refs.list && this.$refs.list.length) {}
+        for (let i = 0; i < this.$refs.list.length; i++) {
+          if (this.newRoute.name === this.$refs.list[i].name) {
+            this.$refs.list[i].selected = true
+          } else {
+            this.$refs.list[i].selected = false
+          }
+        }
       }
     }
   }
