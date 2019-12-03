@@ -18,15 +18,6 @@ import Main from '@/components/main'
 
 export default [
   {
-    path: '/home',
-    name: 'home',
-    meta: {
-      title: '登陆前首页',
-      hideInMenu: true
-    },
-    component: () => import('@/view/home/home.vue')
-  },
-  {
     path: '/login',
     name: 'login',
     meta: {
@@ -36,93 +27,106 @@ export default [
     component: () => import('@/view/login/login.vue')
   },
   {
-    path: '/',
+    path: '/home',
+    name: 'home',
+    meta: {
+      title: '登陆前首页',
+      hideInMenu: true
+    },
+    component: () => import('@/view/home/home.vue')
+  },
+  {
+    path: '/home',
     name: '_pages',
-    redirect: '/userGuide',
     component: Main,
     children: [
       {
-        path: '/userGuide',
+        path: 'userGuide',
         name: 'userGuide',
         component: () => import('@/view/single-page/userGuide/userGuide.vue')
       },
       {
-        path: '/accountManagement',
+        path: 'accountManagement',
         name: 'accountManagement',
         component: () => import('@/view/single-page/accountManagement/accountManagement.vue')
       },
       {
-        path: '/resourceManagement',
+        path: 'addProject',
+        name: 'addProject',
+        component: () => import('@/view/single-page/addProject/addProject.vue')
+      },
+      {
+        path: 'resourceManagement',
         name: 'resourceManagement',
         component: () => import('@/view/single-page/resourceManagement/resourceManagement.vue')
       },
       {
-        path: '/wechatOpView',
+        path: 'wechatOpView',
         name: 'wechatOpView',
         component: () => import('@/view/single-page/wechatOpView/wechatOpView.vue')
       },
       {
-        path: '/userManual',
+        path: 'userManual',
         name: 'userManual',
         component: () => import('@/view/single-page/userManual/userManual.vue')
       },
       {
-        path: '/devWorkflowManagement',
+        path: 'devWorkflowManagement',
         name: 'devWorkflowManagement',
         component: () => import('@/view/single-page/devWorkflowManagement/devWorkflowManagement.vue')
       },
       {
-        path: '/workloadManagement',
+        path: 'workloadManagement',
         name: 'workloadManagement',
         component: () => import('@/view/single-page/workloadManagement/workloadManagement.vue')
       },
       {
-        path: '/evaluationManagement',
+        path: 'evaluationManagement',
         name: 'evaluationManagement',
         component: () => import('@/view/single-page/evaluationManagement/evaluationManagement.vue')
       },
       {
-        path: '/containerService',
+        path: 'containerService',
         name: 'containerService',
         component: () => import('@/view/single-page/containerService/containerService.vue')
       },
       {
-        path: '/weChatNum',
+        path: 'weChatNum',
         name: 'weChatNum',
         component: () => import('@/view/single-page/weChatNum/weChatNum.vue')
       },
       {
-        path: '/personalCenter',
+        path: 'personalCenter',
         name: 'personalCenter',
         component: () => import('@/view/single-page/personalCenter/personalCenter.vue')
       },
       {
-        path: '/virtualDes',
+        path: 'virtualDes',
         name: 'url-virtualDes',
         component: () => import('@/view/single-page/virtualDes/virtualDes.vue')
       },
       {
-        path: '/physicalDes',
+        path: 'physicalDes',
         name: 'url-physicalDes',
         component: () => import('@/view/single-page/physicalDes/physicalDes.vue')
       },
       {
-        path: '/storageDes',
+        path: 'storageDes',
         name: 'url-storageDes',
         component: () => import('@/view/single-page/storageDes/storageDes.vue')
       },
       {
-        path: '/IPAddressDes',
+        path: 'IPAddressDes',
         name: 'url-IPAddressDes',
         component: () => import('@/view/single-page/IPAddressDes/IPAddressDes.vue')
       },
       {
-        path: '/vpnManagementDes',
+        path: 'vpnManagementDes',
         name: 'url-vpnManagementDes',
         component: () => import('@/view/single-page/vpnManagementDes/vpnManagementDes.vue')
       },
       {
-        path: '/renewalDes',
+        path: 'renewalDes',
         name: 'url-renewalDes',
         component: () => import('@/view/single-page/renewalDes/renewalDes.vue')
       }
