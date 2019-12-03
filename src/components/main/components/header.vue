@@ -33,7 +33,7 @@
         </div>
       </Poptip>
       <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="type === 'main'"/>
-      <Icon style="cursor:pointer;" type="md-person" color="#128af6" v-if="type === 'main'"/>
+      <Icon type="md-person" color="#128af6" v-if="type === 'main'"/>
       <p v-if="type === 'main'" style="font-size: 0.5em">测试账号（集团一级系统)</p>
       <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="skip('out')"/>
     </div>

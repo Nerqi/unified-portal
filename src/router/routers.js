@@ -18,6 +18,15 @@ import Main from '@/components/main'
 
 export default [
   {
+    path: '/home',
+    name: 'home',
+    meta: {
+      title: '登陆前首页',
+      hideInMenu: true
+    },
+    component: () => import('@/view/home/home.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     meta: {
