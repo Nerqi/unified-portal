@@ -15,7 +15,7 @@
     </div>
     <div class="header-right">
       <Dropdown @on-click="handleSelect" trigger="hover" @on-visible-change="change">
-        <Icon type="ios-list" style="cursor:pointer;" size="35" color="#128af6"/>
+        <Icon type="ios-list" style="cursor:pointer;" size="35" color="#128af6" v-if="type === 'main'"/>
         <DropdownMenu slot="list" v-for="item in menu_list" :key="item.menu_url">
           <DropdownItem v-if="!item.children_list" :name="item.menu_url" :selected="item.selected">{{item.menu_name}}</DropdownItem>
           <Dropdown placement="right-start" :name="item.menu_url" v-if="item.children_list">

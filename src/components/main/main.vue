@@ -97,14 +97,14 @@ export default {
       color: #515a6e;
     }
     .ivu-menu {
-      font-size: 1.2rem!important;
+      font-size: 1rem!important;
     }
     .ivu-menu-item {
       font-size: 1rem!important;
     }
     @media screen and (min-width: 3072px) {
       .ivu-menu {
-        font-size: 2rem!important;
+        font-size: 1.5rem!important;
       }
       .ivu-menu-item {
         font-size: 1.5rem!important;
@@ -112,7 +112,7 @@ export default {
     }
     @media screen and (min-width: 4800px) {
       .ivu-menu {
-        font-size: 2rem!important;
+        font-size: 1.9rem!important;
       }
       .ivu-menu-item {
         font-size: 1.9rem!important;
