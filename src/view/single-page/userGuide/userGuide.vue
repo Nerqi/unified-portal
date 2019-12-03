@@ -116,6 +116,9 @@ export default {
 </script>
 
 <style lang="less">
+  .ivu-card-head {
+    border-bottom: 0;
+  }
 .userGuide{
   font-size: 0.8em!important;
   height: 100%;
