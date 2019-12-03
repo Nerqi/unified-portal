@@ -328,7 +328,7 @@ const important_data = [
     F: '130',
     G: '北京业务支撑中心',
     H: '2019-11-28 00:00:00',
-    T:'2019-11-28 00:00:00'
+    T: '2019-11-28 00:00:00'
   },
   {
     I: 'TESTREQ20191021165000508',
@@ -340,7 +340,7 @@ const important_data = [
     F: '234',
     G: '北京业务支撑中心',
     H: '2019-11-28 00:00:00',
-    T:'2019-11-28 00:00:00'
+    T: '2019-11-28 00:00:00'
   },
   {
     I: 'TESTREQ20191021164909639',
@@ -352,7 +352,7 @@ const important_data = [
     F: '100',
     G: '北京业务支撑中心',
     H: '2019-11-28 00:00:00',
-    T:'2019-11-28 00:00:00'
+    T: '2019-11-28 00:00:00'
   },
   {
     I: 'TESTREQ20191021164523919',
@@ -364,7 +364,7 @@ const important_data = [
     F: '23',
     G: '北京业务支撑中心',
     H: '2019-11-28 00:00:00',
-    T:'2019-11-28 00:00:00'
+    T: '2019-11-28 00:00:00'
   },
   {
     I: 'TESTREQ20191021164347937',
@@ -376,7 +376,7 @@ const important_data = [
     F: '34',
     G: '北京业务支撑中心',
     H: '2019-11-28 00:00:00',
-    T:'2019-11-28 00:00:00'
+    T: '2019-11-28 00:00:00'
   },
   {
     I: 'TESTREQ20191021163027963',
@@ -388,8 +388,8 @@ const important_data = [
     F: '55',
     G: '北京业务支撑中心',
     H: '2019-11-28 00:00:00',
-    T:'2019-11-28 00:00:00'
-  },
+    T: '2019-11-28 00:00:00'
+  }
 ]
 export default {
   todo_order_list: todo_order_list,
@@ -403,7 +403,7 @@ export default {
   virtual_data: virtual_data,
   demand_info_columns: demand_info_columns,
   demand_info_data: demand_info_data,
-  important_data:important_data,
-  important_columns:important_columns
+  important_data: important_data,
+  important_columns: important_columns
 
 }
