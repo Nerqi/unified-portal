@@ -147,10 +147,10 @@ export default {
     demand_info_data() {
       return demo_list.demand_info_data
     },
-    important_columns(){
+    important_columns() {
        return demo_list.important_columns
     },
-    important_data(){
+    important_data() {
       return demo_list.important_data
     }
   },

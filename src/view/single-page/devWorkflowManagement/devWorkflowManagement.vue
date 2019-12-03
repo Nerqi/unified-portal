@@ -88,8 +88,7 @@ export default {
           .card-double{
             width: 100%;
             height: 100%;
-              background-color:rgba(87, 92, 127, 1);
-        color: #fff;
+            background-color:rgba(87, 92, 127, 1);
             box-shadow: 15px -20px 14px 20px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             p{

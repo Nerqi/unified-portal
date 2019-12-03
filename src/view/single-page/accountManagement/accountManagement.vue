@@ -140,16 +140,16 @@
 
 <script>
 export default {
-  name: "accountManagement",
+  name: 'accountManagement',
   components: {},
   data() {
-    return {};
+    return {}
   },
   mounted() {
     //
   },
   methods: {}
-};
+}
 </script>
 
 <style lang="less">
@@ -179,7 +179,6 @@ export default {
     }
     .row-single {
       margin-top: 1rem;
-      background: linear-gradient(to right, #d8dde0, #caced0, #909fa6);
       .left-row {
         background-color: #d8dde0;
       }
