@@ -5,40 +5,9 @@
     </Header>
     <Content class="content" :style="{height: fullHeight}">
       <div class="login">
-        <div class="login-form">
-          <Form>
-            <Row style="margin-top: 1rem">
-              <Col span="12" style="padding-left: 2rem; font-size: 30px">登陆</Col>
-              <Col span="12"><h5 style="color: #348EED; cursor: pointer">没有账号？立即注册</h5></Col>
-            </Row>
-            <Row style="margin-top: 1rem; text-align: center">
-              <Col span="12" offset="6">
-                <FormItem>
-                  <Input></Input>
-                </FormItem>
-              </Col>
-            </Row>
-            <Row style="margin-top: 1rem; text-align: center">
-              <Col span="12" offset="6">
-                <FormItem>
-                  <Input></Input>
-                </FormItem>
-              </Col>
-            </Row>
-            <Row style="margin-top: 1rem; text-align: center">
-              <Col span="12" offset="6">
-                <FormItem>
-                  <Input></Input>
-                </FormItem>
-              </Col>
-            </Row>
-            <Row style="margin-top: 1rem; text-align: center">
-              <Col span="12" offset="6">
-                <Button type="primary">Primary</Button>
-              </Col>
-            </Row>
-          </Form>
-        </div>
+        <land v-if="loginNav === 1" @loginNav="loginToNav"></land>
+        <register v-if="loginNav === 2" @loginNav="loginToNav"></register>
+        <addProject v-if="loginNav === 3" @loginNav="loginToNav"></addProject>
       </div>
     </Content>
     <Footer :style="{height: foooterHeight}">
@@ -50,10 +19,16 @@
 <script>
 import HeaderBar from '../../components/main/components/header'
 import FooterBar from '../../components/main/components/footer'
+import land from './land'
+import register from './register'
+import addProject from './addProject'
 export default {
   components: {
     HeaderBar,
-    FooterBar
+    FooterBar,
+    land,
+    register,
+    addProject
   },
   data () {
     return {
@@ -62,10 +37,16 @@ export default {
       autoplaySpeed: 3000,
       fullHeight: document.documentElement.clientHeight + 'px',
       headerHeight: 5 + 'rem',
-      foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px'
+      foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px',
+      codeUrl: '',
+      requestCodeFlag: false,
+      loginNav: 1
     }
   },
   methods: {
+    loginToNav(value) {
+      this.loginNav = value
+    }
   }
 }
 </script>
@@ -78,17 +59,6 @@ export default {
       background-image: url("../../assets/images/loginForm.png");
       background-size: 100% 100%;
       background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-     justify-content: center;
-      .login-form{
-        width: 25%;
-        background-color: white;
-        .ivu-row{
-          display: flex;
-          align-items: center;
-        }
-      }
     }
   }
 </style>

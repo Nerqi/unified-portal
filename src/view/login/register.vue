@@ -1,0 +1,155 @@
+<template>
+  <div class="register">
+    <div class="login-form">
+      <Form>
+        <div class="login-info-title">
+          <h2>账号注册</h2>
+        </div>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Select placeholder="请选择所属项目组">
+                <Option v-for="item in projectList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              </Select>
+            </Col>
+            <Col span="6"  offset="1">
+              <p class="loginNavToThree"  @click="loginNavToThree">没有所属项目？立即新增</p>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Select placeholder="请选择所属组织">
+                <Option v-for="item in orgList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              </Select>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Input placeholder="请输入用户名"></Input>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Input placeholder="设置账号"></Input>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Select placeholder="请选择角色">
+                <Option v-for="item in roleList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              </Select>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Select placeholder="请选择岗位(可多选)" multiple>
+                <Option v-for="item in stationList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              </Select>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Input placeholder="请输入身份证号"></Input>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Input placeholder="请输入邮箱"></Input>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem>
+          <Row>
+            <Col span="12"  offset="4">
+              <Input placeholder="请输入手机号码"></Input>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem class="login-info-footer">
+          <Button type="primary" class="login-info-footer-btn" @click="submit">注册</Button>
+        </FormItem>
+      </Form>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'register',
+  data () {
+    return {
+    }
+  },
+  computed: {
+    projectList() {
+      return [ { 'name': '一级测试开发平台', 'key': 1 }, { 'name': '内容计费', 'key': 2 }, { 'name': '4A', 'key': 3 }, { 'name': '网状网', 'key': 4 } ]
+    },
+    orgList() {
+      return [ { 'name': '亚信四组（一级测试开发平台）', 'key': 1 }, { 'name': '亚信九组（内容计费）', 'key': 2 }, { 'name': '4A', 'key': 3 }, { 'name': '网状网', 'key': 4 } ]
+    },
+    roleList() {
+      return [ { 'name': '局方负责人', 'key': 1 }, { 'name': '开发组长', 'key': 2 }, { 'name': '测试人员', 'key': 3 }, { 'name': '编码人员', 'key': 4 }, { 'name': '发布人员', 'key': 5 }, { 'name': '资源管理员', 'key': 6 }, { 'name': '联调负责人', 'key': 7 }, { 'name': '联调测试人员', 'key': 8 }, { 'name': '需求人员', 'key': 9 } ]
+    },
+    stationList() {
+      return [ { 'name': '部门员工', 'key': 1 }, { 'name': '部门领导', 'key': 2 }, { 'name': '集成商领导', 'key': 3 }, { 'name': '集成商员工', 'key': 4 }, { 'name': '融合团队', 'key': 5 }, { 'name': '运维', 'key': 6 }, { 'name': '联调负责人', 'key': 7 }, { 'name': '联调测试人员', 'key': 8 } ]
+    }
+  },
+  methods: {
+    loginNavToThree() {
+      this.$emit('loginNav', 3)
+    },
+    submit() {
+      this.$Message.success({
+        content: '尊敬的用户，您已完成账号注册信息的填写，工单编号***************，审批通过后，账号信息以邮件形式发送到您的邮箱，请及时关注邮箱！',
+        duration: 5,
+        closable: true
+      })
+      this.$emit('loginNav', 1)
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  .register{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .login-form{
+      width: 35%;
+      background-color: white;
+      .loginNavToThree{
+        color: #2d8cf0;
+        cursor: pointer;
+      }
+      .login-info-title{
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+      }
+      .login-info-footer{
+        text-align: center;
+        .login-info-footer-btn{
+          width: 48%;
+          font-size: medium
+        }
+      }
+    }
+  }
+</style>
