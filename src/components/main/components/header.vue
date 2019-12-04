@@ -17,14 +17,14 @@
       <Dropdown @on-click="handleSelect" trigger="hover" @on-visible-change="visivle">
         <Icon type="ios-list" style="cursor:pointer;" size="35" color="#128af6" v-if="type === 'main'"/>
         <DropdownMenu slot="list" v-for="item in menu_list" :key="item.menu_url">
-          <DropdownItem v-if="!item.children_list" :name="item.menu_url" :selected="item.selected" ref="list">{{item.menu_name}}</DropdownItem>
+          <DropdownItem v-if="!item.children_list" :name="item.menu_url" ref="list">{{item.menu_name}}</DropdownItem>
           <Dropdown placement="right-start" :name="item.menu_url" v-if="item.children_list">
             <DropdownItem>
               {{item.menu_name}}
               <Icon type="ios-arrow-forward"></Icon>
             </DropdownItem>
             <DropdownMenu slot="list">
-              <DropdownItem :name="item_child.menu_url" v-for="(item_child) in item.children_list" :key="item_child.menu_url" :selected="item_child.selected" ref="list">{{item_child.menu_name}}</DropdownItem>
+              <DropdownItem class="DropdownItemChild" :name="item_child.menu_url" v-for="(item_child) in item.children_list" :key="item_child.menu_url" ref="list">{{item_child.menu_name}}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </DropdownMenu>
@@ -51,7 +51,7 @@
       <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="type === 'main'" @click="skip('addProject')"/>
       <Icon type="md-person" color="#128af6" v-if="type === 'main'"/>
       <p v-if="type === 'main'" style="font-size: 0.5em">测试账号（集团一级系统)</p>
-      <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="skip('home')"/>
+      <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="confirm"/>
     </div>
     <Modal v-model="model" @on-cancel="showModel(false)" footer-hide>
       <p style="margin-top: 1rem">一级系统测试管理平台于2019-10-30 20:00进行升级上线，请勿进行任何操作！</p>
@@ -70,7 +70,8 @@
         type: String,
         default: '',
         newRoute: '',
-        tmp_menu_list: ''
+        tmp_menu_list: [],
+        selected: false
       }
     },
     data () {
@@ -88,7 +89,9 @@
         this.newRoute = newRoute
       }
     },
-    mounted() {},
+    mounted() {
+      // this.tmp_menu_list = this.menu_list
+    },
     methods: {
       skip(type) {
         this.$router.push({ name: type })
@@ -104,19 +107,55 @@
         this.$router.push({ name: name })
       },
       visivle(e) {
-        if (this.newRoute && this.$refs.list && this.$refs.list.length) {}
-        for (let i = 0; i < this.$refs.list.length; i++) {
-          if (this.newRoute.name === this.$refs.list[i].name) {
-            this.$refs.list[i].selected = true
-          } else {
-            this.$refs.list[i].selected = false
+        if (e === true) {
+          // if (this.newRoute.name) {
+          //   this.tmp_menu_list = this.menu_list
+          //   for (let i = 0; i < this.tmp_menu_list.length; i++) {
+          //     if (this.tmp_menu_list[i].children_list && this.tmp_menu_list[i].children_list.length) {
+          //       if (this.tmp_menu_list[i].name === this.newRoute.name) { this.tmp_menu_list[i].selected = true } else { this.tmp_menu_list[i].selected = false }
+          //       for (let j = 0; j < this.tmp_menu_list[i].children_list.length; j++) {
+          //         if (this.tmp_menu_list[i].children_list[j].name === this.newRoute.name) { this.tmp_menu_list[i].children_list[j].selected = true } else { this.tmp_menu_list[i].children_list[j].selected = false }
+          //       }
+          //     }
+          //   }}
+          if (!this.newRoute) {
+            this.$refs.list[0].selected = true
+          }
+          if (this.newRoute && this.$refs.list && this.$refs.list.length) {
+            for (let i = 0; i < this.$refs.list.length; i++) {
+              if (this.$refs.list[i].name && this.newRoute.name) {
+                if (this.newRoute.name === this.$refs.list[i].name) {
+                  this.$refs.list[i].selected = true // 目前控制台报错，原因，此组件不支持直接修改源代码里面的值，必须从通过prop来传参，后期优化
+                } else {
+                  this.$refs.list[i].selected = false
+                }
+              }
+            }
           }
         }
+      },
+      confirm () {
+        this.$Modal.confirm({
+          title: '确认退出？',
+          onOk: () => {
+            this.$Message.info('成功退出')
+            this.$router.push({ name: 'home' })
+            this.$store.dispatch('user/param', null)
+            localStorage.clear()
+            sessionStorage.clear()
+          },
+          onCancel: () => {
+            this.$Message.info('已取消退出')
+          }
+        })
       }
     }
   }
 </script>
 <style lang="less">
+  .ivu-dropdown{
+    line-height: normal;
+  }
   .header-layout{
     height: 100%;
     width: 100%;

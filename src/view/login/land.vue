@@ -1,29 +1,29 @@
 <template>
   <div class="land">
     <div class="login-form">
-      <Form>
+      <Form ref="loginForm" :model="loginForm" :rules="loginFormRule" :label-width="80">
         <Row class="login-info-title">
           <Col span="15" class="login-info-title-left">登陆</Col>
           <Col span="9"><h5 class="login-info-title-right" @click="loginNavToSecond">没有账号？立即注册</h5></Col>
         </Row>
-        <FormItem>
+        <FormItem prop="username">
           <Row>
-            <Col span="16" offset="4">
-              <Input placeholder="请输入用户名"></Input>
+            <Col span="16">
+              <Input placeholder="请输入用户名" v-model="loginForm.username"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="password">
           <Row>
-            <Col span="16" offset="4">
-              <Input placeholder="请输入密码"></Input>
+            <Col span="16">
+              <Input placeholder="请输入密码" v-model="loginForm.password"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="code">
           <Row>
-            <Col span="10" offset="4">
-              <Input placeholder="请输入验证码"></Input>
+            <Col span="10">
+              <Input placeholder="请输入验证码" v-model="loginForm.code"></Input>
             </Col>
             <Col span="5" offset="1">
               <Button v-if="requestCodeFlag === false" @click="getVerificationCode">获取验证码</Button>
@@ -33,7 +33,7 @@
           </Row>
         </FormItem>
         <FormItem class="login-info-footer">
-          <Button type="primary" class="login-info-footer-btn" @click="submit">登陆</Button>
+          <Button type="primary" class="login-info-footer-btn" @click="submit('loginForm')">登陆</Button>
         </FormItem>
       </Form>
     </div>
@@ -46,7 +46,23 @@ export default {
   data () {
     return {
       codeUrl: '',
-      requestCodeFlag: false
+      requestCodeFlag: false,
+      loginForm: {
+        username: '',
+        password: '',
+        code: ''
+      },
+      loginFormRule: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
+        ]
+      }
     }
   },
   methods: {
@@ -61,13 +77,21 @@ export default {
     loginNavToSecond() {
       this.$emit('loginNav', 2)
     },
-    submit() {
-      this.$Message.success({
-        content: '登陆成功',
-        duration: 3,
-        closable: true
+    submit(loginForm) {
+      this.$refs[loginForm].validate((valid) => {
+        if (valid) {
+          this.$Message.success({
+            content: '登陆成功',
+            duration: 3,
+            closable: true
+          })
+          let param = 1
+          this.$store.dispatch('user/param', param)
+          this.$router.push({ name: 'userGuide' })
+        } else {
+          this.$Message.warning('请完善登陆信息!')
+        }
       })
-      this.$router.push({ name: 'userGuide' })
     }
   }
 }
@@ -96,7 +120,6 @@ export default {
         }
       }
       .login-info-footer{
-        text-align: center;
         .login-info-footer-btn{
           width: 66.56%;
           font-size: medium

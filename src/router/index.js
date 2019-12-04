@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routers'
-// import store from '@/store'
-// import iView from 'iview'
+import store from '@/store'
+import iView from 'iview'
 // import { setToken, getToken, canTurnTo, setTitle } from '@/libs/util'
 // import config from '@/config'
 // const { homeName } = config
+// import { getToken } from '@/libs/util'
 
 Vue.use(Router)
 const routerPush = Router.prototype.push
@@ -24,9 +25,33 @@ const router = new Router({
 // }
 
 router.beforeEach((to, from, next) => {
-  // iView.LoadingBar.start();
-  next()
+  iView.LoadingBar.start()
   // const token = getToken()
+  const param = store.state.user.param
+  // console.dir(token)
+  // console.dir('route~~~~~~~~~~' + param)
+  // console.dir('route~~~~~~~~~~' + to.name)
+  if (!param && to.name === 'login') {
+    next()
+  } else if (!param && to.name === 'home') {
+    next()
+  } else if (!param && to.name !== 'login' && to.name !== 'home') {
+    next('home')
+  } else if (param && to.name === 'login') {
+    next('/home/userGuide')
+  } else {
+    if (param && to.name !== 'login') {
+      next()
+    }
+  }
+  // if (!token && !param) {
+  //   // next()
+  // } else {
+  //   next({
+  //     name: 'login'
+  //   })
+  // }
+  // next()
   // if (!token && to.name !== LOGIN_PAGE_NAME) {
   //   // 未登录且要跳转的页面不是登录页
   //   next({
@@ -59,7 +84,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(to => {
   // setTitle(to, router.app)
-  // iView.LoadingBar.finish()
+  iView.LoadingBar.finish()
   window.scrollTo(0, 0)
 })
 

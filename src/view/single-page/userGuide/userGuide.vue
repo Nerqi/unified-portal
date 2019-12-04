@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted () {
-    //
+    // console.dir(this.$store.getters['user/getParam'])
   },
   methods: {
     skip(name) {
