@@ -96,6 +96,7 @@ export default {
   name: 'register',
   data () {
     return {
+      toHome:true
     }
   },
   computed: {
@@ -119,10 +120,11 @@ export default {
     submit() {
       this.$Message.success({
         content: '尊敬的用户，您已完成账号注册信息的填写，工单编号***************，审批通过后，账号信息以邮件形式发送到您的邮箱，请及时关注邮箱！',
-        duration: 5,
+        duration: 0,
         closable: true
       })
-      this.$emit('loginNav', 1)
+      //  this.$emit('loginNav', 1)
+       this.$emit('toHome',this.toHome)
     }
   }
 }
