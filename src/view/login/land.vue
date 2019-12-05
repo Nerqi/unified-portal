@@ -3,7 +3,7 @@
     <div class="login-form">
       <Form ref="loginForm" :model="loginForm" :rules="loginFormRule" :label-width="80">
         <Row class="login-info-title">
-          <Col span="15" class="login-info-title-left">登陆</Col>
+          <Col span="15" class="login-info-title-left">登录</Col>
           <Col span="9"><h5 class="login-info-title-right" @click="loginNavToSecond">没有账号？立即注册</h5></Col>
         </Row>
         <FormItem prop="username">
@@ -33,7 +33,7 @@
           </Row>
         </FormItem>
         <FormItem class="login-info-footer">
-          <Button type="primary" class="login-info-footer-btn" @click="submit('loginForm')">登陆</Button>
+          <Button type="primary" class="login-info-footer-btn" @click="submit('loginForm')">登录</Button>
         </FormItem>
       </Form>
     </div>
@@ -81,7 +81,7 @@ export default {
       this.$refs[loginForm].validate((valid) => {
         if (valid) {
           this.$Message.success({
-            content: '登陆成功',
+            content: '登录成功',
             duration: 3,
             closable: true
           })
@@ -89,7 +89,7 @@ export default {
           this.$store.dispatch('user/param', param)
           this.$router.push({ name: 'userGuide' })
         } else {
-          this.$Message.warning('请完善登陆信息!')
+          this.$Message.warning('请完善登录信息!')
         }
       })
     }
@@ -116,7 +116,8 @@ export default {
         }
         .login-info-title-right{
           color: #348EED;
-          cursor: pointer
+          cursor: pointer;
+          margin-top: 10px;
         }
       }
       .login-info-footer{

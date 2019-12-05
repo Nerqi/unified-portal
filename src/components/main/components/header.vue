@@ -29,23 +29,35 @@
           </Dropdown>
         </DropdownMenu>
       </Dropdown>
-      <Poptip trigger="hover">
+      <Poptip trigger="hover" placement="bottom-end">
         <Icon style="cursor:pointer;" type="ios-volume-up" color="#white" v-if="type === 'login'"/>
         <div class="content-main" slot="content">
-          <h3>2019-10-19</h3>
-          <p @click="showModel(true)">一级系统测试管理平台上线通知</p>
-          <h3>2019-10-19</h3>
-          <p @click="showModel(true)">评价管理系统上线通知</p>
+          <ul class="list-group" v-for="(item, index) in system_notice_list" :key="index">
+            <li class="list-group-item">
+              <h4>{{item.A}}</h4>
+              <ul v-for="(child_item, child_index) in item.children" :key="child_index">
+                <li>
+                  {{child_item}}
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </Poptip>
-      <Button type="primary" v-if="type === 'login'" @click="skip('login')" style="margin-right: 1rem; font-size: 0.5em">登陆/注册</Button>
-      <Poptip trigger="hover">
+      <Button type="primary" v-if="type === 'login'" @click="skip('login')" style="margin-right: 1rem; font-size: 0.5em">登录/注册</Button>
+      <Poptip trigger="hover" placement="bottom-end">
         <Icon style="cursor:pointer;" type="ios-volume-up" color="#128af6" v-if="type === 'main'"/>
         <div class="content-main" slot="content">
-          <h3>2019-10-19</h3>
-          <p @click="showModel(true)">一级系统测试管理平台上线通知</p>
-          <h3>2019-10-19</h3>
-          <p @click="showModel(true)">评价管理系统上线通知</p>
+          <ul class="list-group" v-for="(item, index) in system_notice_list" :key="index">
+            <li class="list-group-item">
+              <h4>{{item.A}}</h4>
+              <ul v-for="(child_item, child_index) in item.children" :key="child_index">
+                <li>
+                  {{child_item}}
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </Poptip>
       <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="type === 'main'" @click="skip('addProject')"/>
@@ -53,16 +65,17 @@
       <p v-if="type === 'main'" style="font-size: 0.5em">测试账号（集团一级系统)</p>
       <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="confirm"/>
     </div>
-    <Modal v-model="model" @on-cancel="showModel(false)" footer-hide>
-      <p style="margin-top: 1rem">一级系统测试管理平台于2019-10-30 20:00进行升级上线，请勿进行任何操作！</p>
-      <p style="margin-top: 1rem">一级系统测试管理平台本次上线新增IP到期提醒</p>
-      <p style="margin-top: 1rem">一级系统测试管理平台本次上线新增云存储到期提醒</p>
-    </Modal>
+    <!--<Modal v-model="model" @on-cancel="showModel(false)" footer-hide>-->
+      <!--<p style="margin-top: 1rem">一级系统测试管理平台于2019-10-30 20:00进行升级上线，请勿进行任何操作！</p>-->
+      <!--<p style="margin-top: 1rem">一级系统测试管理平台本次上线新增IP到期提醒</p>-->
+      <!--<p style="margin-top: 1rem">一级系统测试管理平台本次上线新增云存储到期提醒</p>-->
+    <!--</Modal>-->
   </div>
 </template>
 <script>
   // import services from '../../../api/services'
   import Menu from '../menu'
+  import demo_list from './listDemo'
   export default {
     name: 'HeaderBar',
     props: {
@@ -76,12 +89,15 @@
     },
     data () {
       return {
-        model: false
+        // model: false
       }
     },
     computed: {
       menu_list() {
         return Menu
+      },
+      system_notice_list() {
+        return demo_list.system_notice_list
       }
     },
     watch: {
@@ -100,9 +116,9 @@
         // }
         // this.$http.post(services.getValidation.getValidation, tmp).then(res => {}) // demo接口
       },
-      showModel(value) {
-        this.model = value
-      },
+      // showModel(value) {
+      //   this.model = value
+      // },
       handleSelect (name) {
         this.$router.push({ name: name })
       },
@@ -244,12 +260,12 @@
       font-size: 1.5em;
       .content-main{
         color: #000c17;
-        h3{
-          margin-top: 0.3rem;
-        }
-        p{
-          cursor: pointer;
-        }
+        /*h3{*/
+          /*margin-top: 0.3rem;*/
+        /*}*/
+        /*li{*/
+          /*cursor: pointer;*/
+        /*}*/
       }
     }
   }

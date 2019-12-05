@@ -1,25 +1,22 @@
 <template>
   <div class="register">
     <div class="login-form">
-      <Form>
+      <Form class="form">
         <div class="login-info-title">
           <h2>账号注册</h2>
         </div>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Select placeholder="请选择所属项目组">
                 <Option v-for="item in projectList" :value="item.name" :key="item.key">{{ item.name }}</Option>
               </Select>
             </Col>
-            <Col span="6"  offset="1">
-              <p class="loginNavToThree"  @click="loginNavToThree">没有所属项目？立即新增</p>
-            </Col>
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Select placeholder="请选择所属组织">
                 <Option v-for="item in orgList" :value="item.name" :key="item.key">{{ item.name }}</Option>
               </Select>
@@ -27,22 +24,22 @@
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Input placeholder="请输入用户名"></Input>
             </Col>
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21" >
               <Input placeholder="设置账号"></Input>
             </Col>
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Select placeholder="请选择角色">
                 <Option v-for="item in roleList" :value="item.name" :key="item.key">{{ item.name }}</Option>
               </Select>
@@ -50,8 +47,8 @@
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21" >
               <Select placeholder="请选择岗位(可多选)" multiple>
                 <Option v-for="item in stationList" :value="item.name" :key="item.key">{{ item.name }}</Option>
               </Select>
@@ -59,22 +56,22 @@
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Input placeholder="请输入身份证号"></Input>
             </Col>
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Input placeholder="请输入邮箱"></Input>
             </Col>
           </Row>
         </FormItem>
         <FormItem>
-          <Row>
-            <Col span="12"  offset="4">
+          <Row type="flex" justify="end">
+            <Col span="21">
               <Input placeholder="请输入手机号码"></Input>
             </Col>
           </Row>
@@ -83,6 +80,13 @@
           <Button type="primary" class="login-info-footer-btn" @click="submit">注册</Button>
         </FormItem>
       </Form>
+      <div class="form-right">
+        <p class="loginNavToThree"  @click="loginNavToThree">没有所属项目？立即新增</p>
+        <p class="loginText" style="margin-top: 150px">账号命名规则：</p>
+        <p class="loginText">1）如果中文名称为2个字，应该为中文名称全拼</p>
+        <p class="loginText">2）如果中文名称超过2个字，应该取姓全拼，名取每个字汉语拼音首字母</p>
+        <p class="loginText">3）如果账号重名，可以在账号后面加上数字后缀</p>
+      </div>
     </div>
   </div>
 </template>
@@ -134,20 +138,40 @@ export default {
     .login-form{
       width: 35%;
       background-color: white;
-      .loginNavToThree{
-        color: #2d8cf0;
-        cursor: pointer;
+      display: flex;
+      .form{
+        width: 60%;
+        .login-info-title{
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          margin-left: 1rem;
+          text-align: center;
+        }
+        .login-info-footer{
+          width: 100%;
+          .ivu-form-item-content{
+            display: flex;
+            flex-direction: row-reverse;
+            width: 100%;
+            .login-info-footer-btn{
+              width: 87.36%;
+              font-size: medium
+            }
+          }
+        }
       }
-      .login-info-title{
-        margin-bottom: 1rem;
-        margin-top: 1rem;
-        text-align: center;
-      }
-      .login-info-footer{
-        text-align: center;
-        .login-info-footer-btn{
-          width: 48%;
-          font-size: medium
+      .form-right{
+        width: 40%;
+        margin-left: 10px;
+        .loginNavToThree{
+          font-size: 15px;
+          color: #2d8cf0;
+          cursor: pointer;
+          margin-top: 70px;
+        }
+        .loginText{
+          font-size: 10px;
+          color: red;
         }
       }
     }

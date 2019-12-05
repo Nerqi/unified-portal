@@ -21,7 +21,7 @@
         <Card class="card-single">
           <p slot="title">资源管理</p>
           <p>资源管理提供主机（物理机和虚拟机）、存储（云存储和磁盘阵列）、IP地址等资源申请，同时提供对各类资源的监控和告警服务，用户可以登录一级系统测试管理平台进行申请</p>
-          <div class="card-route" @click="skip('resourceManagement')">操作详情查看 --》</div>
+          <div class="card-route" @click="skip('url-resourceManagement')">操作详情查看 --》</div>
         </Card>
       </Col>
     </Row>

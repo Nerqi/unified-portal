@@ -31,7 +31,7 @@ export default [
     path: '/home',
     name: 'home',
     meta: {
-      title: '登陆前首页',
+      title: '登录前首页',
       hideInMenu: true
     },
     component: () => import('@/view/home/home.vue')
@@ -58,7 +58,7 @@ export default [
       },
       {
         path: 'resourceManagement',
-        name: 'resourceManagement',
+        name: 'url-resourceManagement',
         component: () => import('@/view/single-page/resourceManagement/resourceManagement.vue')
       },
       {

@@ -8,11 +8,11 @@
           <CarouselItem class="demo-carousel">
             <div class="img-xys1" :style="{height: imgHeight}">
               <div class="img-xys1-text">
-                <h1 style="margin-top: 4rem">需求管理</h1>
-                <h1 style="margin-top: 1.5rem; margin-left: 2rem">开发管理</h1>
-                <h1 style="margin-top: 1.5rem; margin-left: 4rem">工时管理</h1>
-                <h1 style="margin-top: 1.5rem; margin-left: 6rem">版本管理</h1>
-                <h1 style="margin-top: 1.5rem; margin-left: 8rem">资源管理</h1>
+                <h1 style="margin-top: 10rem">需求管理</h1>
+                <h1 style="margin-top: 2rem; margin-left: 2rem">开发管理</h1>
+                <h1 style="margin-top: 2rem; margin-left: 4rem">工时管理</h1>
+                <h1 style="margin-top: 2rem; margin-left: 6rem">版本管理</h1>
+                <h1 style="margin-top: 2rem; margin-left: 8rem">资源管理</h1>
               </div>
             </div>
           </CarouselItem>
@@ -36,12 +36,12 @@
             <div class="img-xys4" :style="{height: imgHeight}">
               <div class="img-xys4-text">
                 <h1 style="margin-left: 30rem">服务开放</h1>
-                <h1 style="margin-left: 60rem; margin-top: 8rem">移动办公</h1>
+                <h1 style="margin-left: 70rem; margin-top: 15rem">移动办公</h1>
               </div>
             </div>
           </CarouselItem>
         </Carousel>
-      <div class="content-main">
+      <div class="content-main" :style="{height: contentMainHeight}">
         <div class="content-main-item">
           <div>
             <img src="../../assets/images/loginNum1.png" class="img-content"/>
@@ -87,9 +87,9 @@ export default {
       type: 'login',
       carouselValue: 0,
       autoplaySpeed: 3000,
-      fullHeight: document.documentElement.clientHeight + 'px',
-      imgHeight: (document.documentElement.clientHeight * (65 / 100)) + 'px',
-      // headerHeight: (document.documentElement.clientHeight * (1 / 15)) + 'px',
+      fullHeight: (document.documentElement.clientHeight * (125 / 100)) + 'px',
+      imgHeight: (document.documentElement.clientHeight * (75 / 100)) + 'px',
+      contentMainHeight: (document.documentElement.clientHeight * (50 / 100)) + 'px',
       headerHeight: 5 + 'rem',
       foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px'
     }
@@ -104,7 +104,7 @@ export default {
     .content{
       .content-swip{
         width: 100%;
-        height: 65%;
+        height: 60%;
         .demo-carousel{
           .img-xys1{
             background-image: url("../../assets/images/swip1.png");
@@ -136,7 +136,7 @@ export default {
             background-repeat: no-repeat;
             background-size: 100% 100%;
             width: 100%;
-            padding-top: 1rem;
+            padding-top: 4rem;
             .img-xys3-text{
               height: 100%;
               width: 50%;
@@ -148,7 +148,7 @@ export default {
             background-repeat: no-repeat;
             background-size: 100% 100%;
             width: 100%;
-            padding-top: 5rem;
+            padding-top: 6rem;
             .img-xys4-text{
               height: 100%;
               width: 100%;
@@ -158,7 +158,7 @@ export default {
         }
       }
       .content-main{
-        height: 35%;
+        height: 40%;
         width: 100%;
         display: flex;
         justify-content: center;

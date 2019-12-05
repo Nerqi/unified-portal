@@ -54,7 +54,7 @@ export default {
     font-size: 0.8em!important;
     height: 100%;
     .ivu-row{
-      height: 30%;
+      height: 20%;
       .ivu-col-span-6{
         height: 100%;
         .card-single{
@@ -75,7 +75,7 @@ export default {
       }
     }
     .tap-main{
-      height: 70%;
+      height: 80%;
       width: 100%;
       text-align: center;
       .img{

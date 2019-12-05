@@ -53,7 +53,7 @@
         <div class="order-right-main">
           <ul class="list-group" v-for="(item, index) in system_notice_list" :key="index">
             <li class="list-group-item">
-              <div>{{item.A}}</div>
+              <h4>{{item.A}}</h4>
               <ul v-for="(child_item, child_index) in item.children" :key="child_index">
                 <li>
                   {{child_item}}
