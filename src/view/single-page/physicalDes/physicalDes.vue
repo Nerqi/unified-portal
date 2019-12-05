@@ -7,7 +7,7 @@
           <div class="main-item">
             <div class="main-text">
               <div class="main-text-title"><h3>物理机申请流程：</h3></div>
-              <div>进入我的工作区--资源申请--物理资源申请，填写申请信息，<p style="color: #ff9b51">所属域类型选择核心域或DMZ域</p>，点击提交</div>
+              <div>进入我的工作区--资源申请--物理资源申请，填写申请信息，<label style="color: #ff9b51">所属域类型选择核心域或DMZ域</label>，点击提交</div>
             </div>
             <div class="main-icon"><Icon type="ios-arrow-forward" /></div>
           </div>
@@ -33,7 +33,7 @@
           <div class="main-item">
             <div class="main-text">
               <div class="main-text-title"><h3>ROOT密码申请流程：</h3></div>
-              <div>进入我的工作区--资源申请--ROOT密码申请，填写申请信息，<p style="color: #ff9b51">密码有效期为7天</p>，点击提交</div>
+              <div>进入我的工作区--资源申请--ROOT密码申请，填写申请信息，<label style="color: #ff9b51">密码有效期为7天</label>，点击提交</div>
             </div>
             <div class="main-icon"><Icon type="ios-arrow-forward" /></div>
           </div>

@@ -15,7 +15,7 @@
         <Col span="8" class="center-row">
           <div class="main-item">
             <div class="main-text">
-              <div>选择申请类型，按条件查询出资源结果，在列表中选择要续期的资源，选择续期后时间，时间不能超过当前到期时间一年</div>
+              <div>选择申请类型，按条件查询出资源结果，在列表中选择要续期的资源，选择续期后时间，时间不能超过当前到期时间一年,<label style="color: rgb(255, 155, 81)">可勾选多条数据批量申请续期</label></div>
             </div>
             <div class="main-icon"><Icon type="ios-arrow-forward" /></div>
           </div>

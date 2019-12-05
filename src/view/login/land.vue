@@ -82,7 +82,7 @@ export default {
         if (valid) {
           this.$Message.success({
             content: '登录成功',
-            duration: 3,
+            duration: 2,
             closable: true
           })
           let param = 1

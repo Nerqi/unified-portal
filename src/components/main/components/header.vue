@@ -172,6 +172,9 @@
   .ivu-dropdown{
     line-height: normal;
   }
+  .ivu-menu-submenu-title > i, .ivu-menu-submenu-title span > i {
+    margin-right: 2px !important;
+  }
   .header-layout{
     height: 100%;
     width: 100%;
