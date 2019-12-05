@@ -72,9 +72,10 @@ export default {
     submit() {
       this.$Message.success({
         content: '尊敬的用户，您提交了一条新增项目组的申请工单，工单编号为************，审批结果将以邮件形式发送到您的邮箱，请注意查收！',
-        duration: 5,
+        duration: 0,
         closable: true
       })
+      this.$router.push({ path: "/"});
     }
   }
 }
