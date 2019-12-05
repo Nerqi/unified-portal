@@ -54,9 +54,7 @@
 export default {
   name: 'addProject',
   data () {
-    return {
-       toHome:true
-    }
+    return {}
   },
   computed: {
     projectList() {
@@ -71,7 +69,7 @@ export default {
         closable: true
       })
       // this.$emit('loginNav', 2)
-      this.$emit('toHome',this.toHome)
+      this.$router.push({ path: 'home' })
     }
   }
 }

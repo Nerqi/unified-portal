@@ -75,7 +75,7 @@ export default {
         duration: 0,
         closable: true
       })
-      this.$router.push({ path: "/"});
+      this.$router.push({ path: '/' })
     }
   }
 }

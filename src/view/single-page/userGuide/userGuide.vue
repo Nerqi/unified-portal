@@ -98,9 +98,7 @@ export default {
     return {
     }
   },
-  mounted () {
-    // console.dir(this.$store.getters['user/getParam'])
-  },
+  mounted () {},
   methods: {
     skip(name) {
       if (name) {

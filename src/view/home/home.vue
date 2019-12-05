@@ -3,12 +3,12 @@
     <Header :style="{height: headerHeight}">
       <HeaderBar :type="type"></HeaderBar>
     </Header>
-    <Content class="content" :style="{height: fullHeight}">
-        <Carousel class="content-swip" v-model="carouselValue" loop autoplay :autoplaySpeed="autoplaySpeed" trigger="click" arrow="always">
+    <Content class="content">
+        <Carousel class="content-swip" v-model="carouselValue" loop  :autoplaySpeed="autoplaySpeed" trigger="click" arrow="always">
           <CarouselItem class="demo-carousel">
             <div class="img-xys1" :style="{height: imgHeight}">
               <div class="img-xys1-text">
-                <h1 style="margin-top: 10rem">需求管理</h1>
+                <h1 style="margin-top: 6rem">需求管理</h1>
                 <h1 style="margin-top: 2rem; margin-left: 2rem">开发管理</h1>
                 <h1 style="margin-top: 2rem; margin-left: 4rem">工时管理</h1>
                 <h1 style="margin-top: 2rem; margin-left: 6rem">版本管理</h1>
@@ -36,7 +36,7 @@
             <div class="img-xys4" :style="{height: imgHeight}">
               <div class="img-xys4-text">
                 <h1 style="margin-left: 30rem">服务开放</h1>
-                <h1 style="margin-left: 70rem; margin-top: 15rem">移动办公</h1>
+                <h1 style="margin-left: 60rem; margin-top: 10rem">移动办公</h1>
               </div>
             </div>
           </CarouselItem>
@@ -87,9 +87,9 @@ export default {
       type: 'login',
       carouselValue: 0,
       autoplaySpeed: 3000,
-      fullHeight: (document.documentElement.clientHeight * (125 / 100)) + 'px',
+      fullHeight: document.documentElement.clientHeight + 'px',
       imgHeight: (document.documentElement.clientHeight * (75 / 100)) + 'px',
-      contentMainHeight: (document.documentElement.clientHeight * (50 / 100)) + 'px',
+      contentMainHeight: (document.documentElement.clientHeight * (40 / 100)) + 'px',
       headerHeight: 5 + 'rem',
       foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px'
     }
@@ -104,7 +104,6 @@ export default {
     .content{
       .content-swip{
         width: 100%;
-        height: 60%;
         .demo-carousel{
           .img-xys1{
             background-image: url("../../assets/images/swip1.png");
@@ -158,7 +157,6 @@ export default {
         }
       }
       .content-main{
-        height: 40%;
         width: 100%;
         display: flex;
         justify-content: center;

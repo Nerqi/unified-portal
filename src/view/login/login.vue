@@ -6,8 +6,8 @@
     <Content class="content" :style="{height: fullHeight}">
       <div class="login">
         <land v-if="loginNav === 1" @loginNav="loginToNav"></land>
-        <register  v-if="loginNav === 2"  @loginNav="loginToNav" @toHome="toHome"></register>
-        <addProject v-if="loginNav === 3" @loginNav="loginToNav" @toHome="toHome"></addProject>
+        <register  v-if="loginNav === 2"  @loginNav="loginToNav"></register>
+        <addProject v-if="loginNav === 3" @loginNav="loginToNav"></addProject>
       </div>
     </Content>
     <Footer :style="{height: foooterHeight}">
@@ -40,7 +40,7 @@ export default {
       foooterHeight: (document.documentElement.clientHeight * (3 / 10)) + 'px',
       codeUrl: '',
       requestCodeFlag: false,
-      loginNav: 1,
+      loginNav: 1
     }
   },
   methods: {
@@ -50,11 +50,6 @@ export default {
       //      //跳转到首页
       //  this.$router.push({ path: "home"});
       // }
-    },
-    toHome(value){
-       if(value){
-          this.$router.push({ path: "home"});
-       }
     }
   }
 }

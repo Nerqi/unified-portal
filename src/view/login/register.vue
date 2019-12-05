@@ -95,9 +95,7 @@
 export default {
   name: 'register',
   data () {
-    return {
-      toHome:true
-    }
+    return {}
   },
   computed: {
     projectList() {
@@ -124,7 +122,7 @@ export default {
         closable: true
       })
       //  this.$emit('loginNav', 1)
-       this.$emit('toHome',this.toHome)
+      this.$router.push({ path: 'home' })
     }
   }
 }
