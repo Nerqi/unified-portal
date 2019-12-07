@@ -1,4 +1,4 @@
-
+import CryptoJS from 'crypto-js'
 const PBULICFUNC = {
   // 将日期对象格式化成字符串
   formatDate(date, fmt) {
@@ -289,6 +289,15 @@ const PBULICFUNC = {
       callback()
     }
   },
+  /* 字母或数字组合 */
+  checkstaffApply (rule, value, callback) {
+    let Regx = /^[A-Za-z0-9]*$/
+    if (!Regx.test(value)) {
+      callback(new Error('账号只可以为字母或数字组合'))
+    } else {
+      callback()
+    }
+  },
 
   /* 中文 */
   checkIsCH (rule, value, callback) {
@@ -329,6 +338,21 @@ const PBULICFUNC = {
     } else {
       callback()
     }
+  },
+  // 加密
+  encrypt(word) {
+    let keyStr = 'abcdefgabcdefg12'
+    let key = CryptoJS.enc.Utf8.parse(keyStr)
+    let srcs = CryptoJS.enc.Utf8.parse(word)
+    let encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 })
+    return encrypted.toString()
+  },
+  // 解密
+  decrypt(word) {
+    let keyStr = 'abcdefgabcdefg12'
+    let key = CryptoJS.enc.Utf8.parse(keyStr)
+    let decrypt = CryptoJS.AES.decrypt(word, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 })
+    return CryptoJS.enc.Utf8.stringify(decrypt).toString()
   }
 }
 

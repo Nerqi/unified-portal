@@ -18,6 +18,17 @@ const resolve = dir => {
 
 module.exports = {
   configureWebpack: {
+    performance: {
+      hints: 'warning',
+      // 入口起点的最大体积
+      maxEntrypointSize: 50000000,
+      // 生成文件的最大体积
+      maxAssetSize: 30000000
+      // 只给出 js 文件的性能提示
+      // assetFilter: function (assetFilename) {
+      //   return assetFilename.endsWith('.js')
+      // }
+    },
     module: {
       rules: [
         {
@@ -63,8 +74,12 @@ module.exports = {
   devServer: {
     port: 8080,
     proxy: { // 设置代理
-      '/predealsrv': {
-        target: 'http://10.12.1.71:32261/',
+      '/aialm': {
+        target: 'http://10.12.1.30:28080/',
+        changeOrigin: true
+      },
+      '/oauth': {
+        target: 'http://10.12.1.20:9094/',
         changeOrigin: true
       }
     }

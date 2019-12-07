@@ -7,10 +7,10 @@
     </div>
     <div class="header-menu">
       <a @click="skip('home')">首页</a>
-      <a href="https://www.taobao.com/">一级系统测试管理平台</a>
-      <a href="https://www.taobao.com/">评价管理系统</a>
+      <a @click="showPage(3)">一级系统测试管理平台</a>
+      <a @click="showPage(1)">评价管理系统</a>
       <a href="https://www.taobao.com/">容器管理系统</a>
-      <a href="https://www.taobao.com/">重点需求看板</a>
+      <a @click="showPage(4)">重点需求看板</a>
       <a href="https://www.taobao.com/">Devops</a>
     </div>
     <div class="header-right">
@@ -156,7 +156,7 @@
           onOk: () => {
             this.$Message.info('成功退出')
             this.$router.push({ name: 'home' })
-            this.$store.dispatch('user/param', null)
+            this.$store.dispatch('user/access_token', '')
             localStorage.clear()
             sessionStorage.clear()
           },
@@ -164,6 +164,24 @@
             this.$Message.info('已取消退出')
           }
         })
+      },
+      showPage(num) {
+        let access_token = this.$store.getters['user/getAccess_token'] || ''
+        if (access_token) {
+          if (num === 1) {
+            let url = 'http://10.12.1.20:9094/estimate/#/login'
+            window.location.href = url
+          } else if (num === 2) {
+            window.location.href = 'http://10.12.1.20:9094/PaaS/#/overview'
+          } else if (num === 3) {
+            window.location.href = 'http://10.12.1.20:9094/aialm/webframe/shdesktopui/WebAppFrameSet_new.jsp'
+          } else if (num === 4) {
+            window.location.href = 'http://10.12.1.20:9094/req_KANBAN'
+          }
+        } else {
+          this.$Message.warning('还未登录！')
+          this.$router.push({ name: 'login' })
+        }
       }
     }
   }

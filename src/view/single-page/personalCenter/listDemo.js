@@ -32,47 +32,47 @@ const physical_columns = [
   {
     title: '名称',
     align: 'center',
-    key: 'A'
+    key: 'NAME'
   },
   {
     title: 'CPU',
     align: 'center',
-    key: 'B'
+    key: 'CPU'
   },
   {
     title: 'CPU使用率',
     align: 'center',
-    key: 'C'
+    key: 'wCpuRate '
   },
   {
     title: '内存',
     align: 'center',
-    key: 'D'
+    key: 'MEMORY'
   },
   {
     title: '内存使用率',
     align: 'center',
-    key: 'E'
+    key: 'wMemoryRate'
   },
   {
     title: 'DISK',
     align: 'center',
-    key: 'F'
+    key: 'DISK'
   },
   {
     title: '磁盘使用率',
     align: 'center',
-    key: 'G'
+    key: 'wDiskRate'
   },
   {
     title: 'IP',
     align: 'center',
-    key: 'H'
+    key: 'IP'
   },
   {
     title: '责任人',
     align: 'center',
-    key: 'T'
+    key: 'DUTY_NAME'
   }
 ]
 const physical_data = [
@@ -108,57 +108,57 @@ const virtual_columns = [
   {
     title: '名称',
     align: 'center',
-    key: 'A'
+    key: 'name'
   },
   {
     title: 'IP',
     align: 'center',
-    key: 'B'
+    key: 'ip'
   },
   {
     title: 'CPU',
     align: 'center',
-    key: 'C'
+    key: 'cpu'
   },
   {
     title: 'CPU使用率',
     align: 'center',
-    key: 'D'
+    key: 'wCpuRate'
   },
   {
     title: '内存',
     align: 'center',
-    key: 'E'
+    key: 'memory'
   },
   {
     title: '内存使用率',
     align: 'center',
-    key: 'F'
+    key: 'wMemoryRate'
   },
   {
     title: '云盘数量',
     align: 'center',
-    key: 'G'
+    key: 'volNum'
   },
   {
     title: '云盘容量',
     align: 'center',
-    key: 'H'
+    key: 'volSize'
   },
   {
     title: '系统盘容量',
     align: 'center',
-    key: 'I'
+    key: 'rootDiskSize'
   },
   {
     title: '磁盘使用率',
     align: 'center',
-    key: 'J'
+    key: 'wDiskRate'
   },
   {
     title: '责任人',
     align: 'center',
-    key: 'K'
+    key: 'dutyName'
   }
 ]
 const virtual_data = [
@@ -198,47 +198,47 @@ const demand_info_columns = [
   {
     title: '需求编号',
     align: 'center',
-    key: 'A'
+    key: 'reqTag'
   },
   {
     title: '需求名称',
     align: 'center',
-    key: 'B'
+    key: 'reqName'
   },
   {
     title: '核算工作量',
     align: 'center',
-    key: 'C'
+    key: 'accountWork'
   },
   {
     title: '文档个数',
     align: 'center',
-    key: 'D'
+    key: 'fileNum'
   },
   {
     title: '计划上线时间',
     align: 'center',
-    key: 'E'
+    key: 'planPublicTime'
   },
   {
     title: '是否已延期',
     align: 'center',
-    key: 'F'
+    key: 'isDelay'
   },
   {
     title: '是否重点需求',
     align: 'center',
-    key: 'G'
+    key: 'isImportantReq'
   },
   {
     title: '需求来源',
     align: 'center',
-    key: 'H'
+    key: 'reqSource'
   },
   {
     title: '项目组',
     align: 'center',
-    key: 'T'
+    key: 'groupName'
   }
 ]
 const demand_info_data = [
@@ -267,54 +267,54 @@ const demand_info_data = [
 ]
 const important_columns = [
   {
-    title: '需求编号',
-    key: 'I',
+    title: '需求名称',
+    key: 'reqName',
     align: 'center'
   },
   {
-    title: '需求名称',
+    title: '需求编号',
     align: 'center',
-    key: 'A'
+    key: 'reqTag'
   },
   {
     title: '需求类型',
     align: 'center',
-    key: 'B'
+    key: 'reqType'
   },
   {
     title: '需求阶段',
     align: 'center',
-    key: 'C'
+    key: 'curPhase'
   },
   {
     title: '当前执行人',
     align: 'center',
-    key: 'D'
+    key: 'exeStaffName'
   },
   {
     title: '创建时间',
     align: 'center',
-    key: 'E'
+    key: 'createTime'
   },
   {
     title: '预估工时',
     align: 'center',
-    key: 'F'
+    key: 'preWorkload'
   },
   {
     title: '需求来源',
     align: 'center',
-    key: 'G'
+    key: 'reqSource'
   },
   {
     title: '计划完成时间',
     align: 'center',
-    key: 'H'
+    key: 'planTime'
   },
   {
     title: '计划上线时间',
     align: 'center',
-    key: 'T'
+    key: 'planPublicTime'
   }
 ]
 const important_data = [

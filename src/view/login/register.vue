@@ -1,83 +1,83 @@
 <template>
   <div class="register">
     <div class="login-form">
-      <Form class="form">
+      <Form class="form" ref="registerForm" :model="registerForm" :rules="registerFormRule">
         <div class="login-info-title">
           <h2>账号注册</h2>
         </div>
-        <FormItem>
+        <FormItem prop="groupId">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Select placeholder="请选择所属项目组">
-                <Option v-for="item in projectList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              <Select placeholder="请选择所属项目组" v-model="registerForm.groupId">
+                <Option v-for="item in projectList" :value="item.groupId" :key="item.groupId">{{ item.groupName }}</Option>
               </Select>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="organizeId">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Select placeholder="请选择所属组织">
-                <Option v-for="item in orgList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              <Select placeholder="请选择所属组织" v-model="registerForm.organizeId">
+                <Option v-for="item in orgList" :value="item.paramId" :key="item.paramId">{{ item.paramName }}</Option>
               </Select>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="staffCnApply">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Input placeholder="请输入用户名"></Input>
+              <Input placeholder="请输入用户名" v-model="registerForm.staffCnApply"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="staffApply">
           <Row type="flex" justify="end">
             <Col span="21" >
-              <Input placeholder="设置账号"></Input>
+              <Input placeholder="设置账号" v-model="registerForm.staffApply"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="rolesId">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Select placeholder="请选择角色">
-                <Option v-for="item in roleList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              <Select placeholder="请选择角色(可多选)" multiple v-model="registerForm.rolesId">
+                <Option v-for="item in roleList" :value="item.paramId" :key="item.paramId">{{ item.paramName }}</Option>
               </Select>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="stationsId">
           <Row type="flex" justify="end">
             <Col span="21" >
-              <Select placeholder="请选择岗位(可多选)" multiple>
-                <Option v-for="item in stationList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+              <Select placeholder="请选择岗位(可多选)" multiple v-model="registerForm.stationsId">
+                <Option v-for="item in stationList" :value="item.paramId" :key="item.paramId">{{ item.paramName }}</Option>
               </Select>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="staffIdNo">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Input placeholder="请输入身份证号"></Input>
+              <Input placeholder="请输入身份证号" v-model="registerForm.staffIdNo"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="staffEmail">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Input placeholder="请输入邮箱"></Input>
+              <Input placeholder="请输入邮箱" v-model="registerForm.staffEmail"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem>
+        <FormItem prop="staffMobile">
           <Row type="flex" justify="end">
             <Col span="21">
-              <Input placeholder="请输入手机号码"></Input>
+              <Input placeholder="请输入手机号码" v-model="registerForm.staffMobile"></Input>
             </Col>
           </Row>
         </FormItem>
         <FormItem class="login-info-footer">
-          <Button type="primary" class="login-info-footer-btn" @click="submit">注册</Button>
+          <Button type="primary" class="login-info-footer-btn" @click="submit('registerForm')">注册</Button>
         </FormItem>
       </Form>
       <div class="form-right">
@@ -92,37 +92,130 @@
 </template>
 
 <script>
+  import services from '../../api/services'
 export default {
   name: 'register',
   data () {
-    return {}
-  },
-  computed: {
-    projectList() {
-      return [ { 'name': '一级测试开发平台', 'key': 1 }, { 'name': '内容计费', 'key': 2 }, { 'name': '4A', 'key': 3 }, { 'name': '网状网', 'key': 4 } ]
-    },
-    orgList() {
-      return [ { 'name': '亚信四组（一级测试开发平台）', 'key': 1 }, { 'name': '亚信九组（内容计费）', 'key': 2 }, { 'name': '4A', 'key': 3 }, { 'name': '网状网', 'key': 4 } ]
-    },
-    roleList() {
-      return [ { 'name': '局方负责人', 'key': 1 }, { 'name': '开发组长', 'key': 2 }, { 'name': '测试人员', 'key': 3 }, { 'name': '编码人员', 'key': 4 }, { 'name': '发布人员', 'key': 5 }, { 'name': '资源管理员', 'key': 6 }, { 'name': '联调负责人', 'key': 7 }, { 'name': '联调测试人员', 'key': 8 }, { 'name': '需求人员', 'key': 9 } ]
-    },
-    stationList() {
-      return [ { 'name': '部门员工', 'key': 1 }, { 'name': '部门领导', 'key': 2 }, { 'name': '集成商领导', 'key': 3 }, { 'name': '集成商员工', 'key': 4 }, { 'name': '融合团队', 'key': 5 }, { 'name': '运维', 'key': 6 }, { 'name': '联调负责人', 'key': 7 }, { 'name': '联调测试人员', 'key': 8 } ]
+    return {
+      projectList: [],
+      orgList: [],
+      roleList: [],
+      stationList: [],
+      registerForm: {
+        groupId: '',
+        organizeId: '',
+        staffCnApply: '',
+        staffApply: '',
+        rolesId: [],
+        stationsId: [],
+        staffIdNo: '',
+        staffEmail: '',
+        staffMobile: ''
+      },
+      registerFormRule: {
+        groupId: [
+          { required: true, message: '请选择所属项目组', trigger: 'change', type: 'number' }
+        ],
+        organizeId: [
+          { required: true, message: '请选择所属组织', trigger: 'change', type: 'number' }
+        ],
+        staffCnApply: [
+          { required: true, message: '请输入姓名', trigger: 'blur' }
+        ],
+        staffApply: [
+          { required: true, message: '请输入账号', trigger: 'blur' },
+          { validator: this.$publicFunc.checkstaffApply }
+        ],
+        rolesId: [
+          { required: true, message: '请选择角色', trigger: 'change', type: 'array' }
+        ],
+        stationsId: [
+          { required: true, message: '请选择岗位', trigger: 'change', type: 'array' }
+        ],
+        staffIdNo: [
+          { required: true, message: '请输入身份证号', trigger: 'blur' },
+          { validator: this.$publicFunc.validateIdCard }
+        ],
+        staffEmail: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          { validator: this.$publicFunc.validaEmails }
+        ],
+        staffMobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { validator: this.$publicFunc.validatephone }
+        ]
+      }
     }
   },
+  computed: {},
+  mounted() {
+    this.getProjectList()
+    this.getOrgList()
+    this.getRoleList()
+    this.getStationList()
+  },
   methods: {
+    getProjectList() {
+      this.$http.get(services.login.getProjectList).then(res => {
+        if (res && res.data && res.data.objects) {
+          this.projectList = res.data.objects
+        }
+      })
+    },
+    getOrgList() {
+      this.$http.get(services.login.getOrgList).then(res => {
+        if (res && res.data && res.data.objects) {
+          this.orgList = res.data.objects
+        }
+      })
+    },
+    getRoleList() {
+      this.$http.get(services.login.getRoles).then(res => {
+        if (res && res.data && res.data.objects) {
+          this.roleList = res.data.objects
+        }
+      })
+    },
+    getStationList() {
+      this.$http.get(services.login.getStations).then(res => {
+        if (res && res.data && res.data.objects) {
+          this.stationList = res.data.objects
+        }
+      })
+    },
     loginNavToThree() {
       this.$emit('loginNav', 3)
     },
-    submit() {
-      this.$Message.success({
-        content: '尊敬的用户，您已完成账号注册信息的填写，工单编号***************，审批通过后，账号信息以邮件形式发送到您的邮箱，请及时关注邮箱！',
-        duration: 0,
-        closable: true
+    submit(registerForm) {
+      this.$refs[registerForm].validate((valid) => {
+        if (valid) {
+          let formData = new FormData()
+          formData.append('groupId', this.registerForm.groupId)
+          formData.append('organizeId', this.registerForm.organizeId)
+          formData.append('staffCnApply', this.registerForm.staffCnApply)
+          formData.append('staffApply', this.registerForm.staffApply)
+          formData.append('rolesId', this.registerForm.rolesId)
+          formData.append('stationsId', this.registerForm.stationsId)
+          formData.append('staffIdNo', this.registerForm.staffIdNo)
+          formData.append('staffEmail', this.registerForm.staffEmail)
+          formData.append('staffMobile', this.registerForm.staffMobile)
+          this.$http.post(services.login.createAccount, formData).then(res => {
+            if (res.data.success) {
+              this.$Message.success({
+                content: '尊敬的用户，您已完成账号注册信息的填写，工单编号为' + res.data.msg + '，审批通过后，账号信息以邮件形式发送到您的邮箱，请及时关注邮箱！',
+                duration: 0,
+                closable: true
+              })
+              // this.$emit('loginNav', 2)
+              this.$router.push({ path: 'home' })
+            } else {
+              this.$Message.error('新增失败，请联系管理员!')
+            }
+          })
+        } else {
+          this.$Message.warning('请完善注册信息!')
+        }
       })
-      //  this.$emit('loginNav', 1)
-      this.$router.push({ path: 'home' })
     }
   }
 }

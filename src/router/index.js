@@ -27,20 +27,18 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
   // const token = getToken()
-  const param = store.state.user.param
-  // console.dir(token)
-  // console.dir('route~~~~~~~~~~' + param)
-  // console.dir('route~~~~~~~~~~' + to.name)
-  if (!param && to.name === 'login') {
+  const access_token = store.state.user.access_token
+  // console.dir('route~~~~~~~~~~' + access_token)
+  if (!access_token && to.name === 'login') {
     next()
-  } else if (!param && to.name === 'home') {
+  } else if (!access_token && to.name === 'home') {
     next()
-  } else if (!param && to.name !== 'login' && to.name !== 'home') {
+  } else if (!access_token && to.name !== 'login' && to.name !== 'home') {
     next('home')
-  } else if (param && to.name === 'login') {
+  } else if (access_token && to.name === 'login') {
     next('/home/userGuide')
   } else {
-    if (param && to.name !== 'login') {
+    if (access_token && to.name !== 'login') {
       next()
     }
   }

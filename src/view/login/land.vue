@@ -16,14 +16,14 @@
         <FormItem prop="password">
           <Row>
             <Col span="16">
-              <Input placeholder="请输入密码" v-model="loginForm.password"></Input>
+              <Input placeholder="请输入密码" v-model="loginForm.password" type="password"></Input>
             </Col>
           </Row>
         </FormItem>
-        <FormItem prop="code">
+        <FormItem prop="identifyCodes">
           <Row>
             <Col span="10">
-              <Input placeholder="请输入验证码" v-model="loginForm.code"></Input>
+              <Input placeholder="请输入验证码" v-model="loginForm.identifyCodes"></Input>
             </Col>
             <Col span="5" offset="1">
               <Button v-if="requestCodeFlag === false" @click="getVerificationCode">获取验证码</Button>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+  import services from '../../api/services'
 export default {
   name: 'land',
   data () {
@@ -50,7 +51,8 @@ export default {
       loginForm: {
         username: '',
         password: '',
-        code: ''
+        identifyCodes: '',
+        grant_type: 'password'
       },
       loginFormRule: {
         username: [
@@ -59,20 +61,28 @@ export default {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
-        code: [
+        identifyCodes: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       }
     }
   },
+  mounted() {
+    this.getVerificationCode()
+  },
   methods: {
     /* 获取验证码 **/
     getVerificationCode() {
       this.requestCodeFlag = true
-      this.codeUrl = ''
-      setTimeout(() => {
-        this.codeUrl = 'res.img'
-      }, 500)
+      let num = Math.ceil(Math.random() * 10)
+      this.$http.get(services.login.CreateCodeImage + '?' + num).then(res => {
+        if (res && res.data) {
+          this.codeUrl = res.data
+        }
+      })
+      // setTimeout(() => {
+      //   this.codeUrl = 'res.img'
+      // }, 500)
     },
     loginNavToSecond() {
       this.$emit('loginNav', 2)
@@ -80,14 +90,24 @@ export default {
     submit(loginForm) {
       this.$refs[loginForm].validate((valid) => {
         if (valid) {
-          this.$Message.success({
-            content: '登录成功',
-            duration: 2,
-            closable: true
+          let formData = new FormData()
+          let CryptoJS_password = this.$publicFunc.encrypt(this.loginForm.password)
+          formData.append('username', this.loginForm.username)
+          formData.append('password', CryptoJS_password)
+          formData.append('verifyCode', this.loginForm.identifyCodes)
+          formData.append('grant_type', 'password')
+          this.$http.post(services.login.LoginByUsername, formData).then(res => {
+            if (res && res.data) {
+              if (res.data.access_token) {
+                this.$Message.success('登录成功')
+                this.$store.dispatch('user/access_token', res.data.access_token)
+                this.$router.push({ name: 'userGuide' })
+              }
+            }
+            if (res && res.data && res.data.ok === 0) {
+              this.$Message.warning(res.data.msg)
+            }
           })
-          let param = 1
-          this.$store.dispatch('user/param', param)
-          this.$router.push({ name: 'userGuide' })
         } else {
           this.$Message.warning('请完善登录信息!')
         }
@@ -107,6 +127,11 @@ export default {
     .login-form{
       width: 25%;
       background-color: white;
+      img{
+        height: 30px;
+        width: 70px;
+        cursor: pointer;
+      }
       .login-info-title{
         margin-bottom: 1rem;
         margin-top: 1rem;

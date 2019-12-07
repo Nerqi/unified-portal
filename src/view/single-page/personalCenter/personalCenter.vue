@@ -7,28 +7,28 @@
         </div>
         <div class="user-info">
           <div class="user-info-main">
-          <p>账号：ADMINISTRATOR</p>
-          <p>电话：13487859874</p>
-          <p>邮箱：admin@aialm.com</p>
+          <p>账号：{{username}}</p>
+          <p>电话：{{billId}}</p>
+          <p>邮箱：{{email}}</p>
           </div>
         </div>
       </div>
       <div class="personal-right">
         <div class="orderNum-item">
           <p>待办工单</p>
-          <div class="circle">6</div>
+          <div class="circle">{{todoOrderCount}}</div>
         </div>
         <div class="orderNum-item">
           <p>我的资源</p>
-          <div class="circle">0</div>
+          <div class="circle">{{resCount}}</div>
         </div>
         <div class="orderNum-item">
           <p>需求总量</p>
-          <div class="circle">148</div>
+          <div class="circle">{{reqCount}}</div>
         </div>
         <div class="orderNum-item">
           <p>重点需求</p>
-          <div class="circle">5</div>
+          <div class="circle">{{impReqCount}}</div>
         </div>
       </div>
     </div>
@@ -40,8 +40,8 @@
         </div>
         <div class="order-left-main">
           <ul class="list-group" v-for="(item, index) in order_list" :key="index">
-            <li class="list-group-item">
-              {{item.A}} | {{item.B}} |  {{item.C}} | {{item.D}}
+            <li class="list-group-item" @click="showPage(3)">
+              {{item.objTag}} | {{item.objName}} |  {{item.taskName}} | {{item.createTime}}
             </li>
           </ul>
         </div>
@@ -51,12 +51,12 @@
           <label>系统公告</label>
         </div>
         <div class="order-right-main">
-          <ul class="list-group" v-for="(item, index) in system_notice_list" :key="index">
+          <ul class="list-group">
             <li class="list-group-item">
-              <h4>{{item.A}}</h4>
-              <ul v-for="(child_item, child_index) in item.children" :key="child_index">
+              <h4>{{pubTime}} 一级系统测试管理平台系统更新公告</h4>
+              <ul v-for="(item, index) in system_notice_list" :key="index">
                 <li>
-                  {{child_item}}
+                  {{item}}
                 </li>
               </ul>
             </li>
@@ -76,26 +76,28 @@
       <div class="tabs-main">
         <ul class="list-group" v-if="table_nav === 1" v-for="(item, index) in resource_alarm_list" :key="index">
           <li class="list-group-item">
-            <Icon type="md-warning" v-if="item.F === '灾难告警'" style="color: red;font-size: 2rem"/>
-            <Icon type="md-warning" v-if="item.F === '一般严重'" style="color: rgb(229, 111, 52);font-size: 2rem"/>
-            <Icon type="md-warning" v-if="item.F === '严重告警'" style="color: #ffaa2a;font-size: 2rem"/>
-            <Icon type="md-warning" v-if="item.F === '普通告警'" style="color: #f6f117;font-size: 2rem"/>
-            <label>{{item.F}}</label>
-            <p style=" margin-left: 3rem;">{{item.A}}  |  {{item.B}}  |  {{item.C}}  |  {{item.D}}  |  {{item.E}}</p>
+            <Icon type="md-warning" v-if="item.priority === '1'" style="color: red;font-size: 2rem"/>
+            <Icon type="md-warning" v-if="item.priority === '2'" style="color: rgb(229, 111, 52);font-size: 2rem"/>
+            <Icon type="md-warning" v-if="item.priority === '3'" style="color: #ffaa2a;font-size: 2rem"/>
+            <Icon type="md-warning" v-if="item.priority === '4'" style="color: #f6f117;font-size: 2rem"/>
+            <label>{{item.priority}}</label>
+            <p style=" margin-left: 3rem;">{{item.name}}  |  {{item.ip}}  |  {{item.monitorContent}}  |  {{item.monitorDate}}  |  {{item.duration}}</p>
           </li>
         </ul>
         <ul class="list-group" v-if="table_nav === 2" v-for="(item, index) in demand_alarm_list" :key="index">
           <li class="list-group-item">
-            <p>{{item.A}}  ： {{item.B}}</p>
+            <p>{{item.alertTime}} {{item.alertType}} ： {{item.reqTag}} | {{item.reqName}} : {{item.alertContent}}</p>
           </li>
         </ul>
-        <Table v-if="table_nav === 3" :columns="important_columns" :data="important_data" border></Table>
+        <div class="personalCenter-ivu-table-row">
+          <Table v-if="table_nav === 3" :columns="important_columns" :data="important_data" border @on-row-click="showPage(4)"></Table>
+        </div>
         <!-- <iframe  v-if="table_nav === 3" src="https://www.taobao.com/" width="100%" height="98%" frameborder="0" scrolling="auto"></iframe> -->
         <Table v-if="table_nav === 4" :columns="physical_columns" :data="physical_data" border></Table>
         <div class="virtual-columns-get" v-if="table_nav === 5">
           <p>项目组：</p>
-          <Select style="width:200px">
-            <Option v-for="item in projectList" :value="item.name" :key="item.key">{{ item.name }}</Option>
+          <Select style="width:200px" v-model="groupId" @on-change="groupIdChange" placeholder="请选择项目组">
+            <Option v-for="item in projectList" :value="item.groupId" :key="item.groupId">{{ item.groupName }}</Option>
           </Select>
         </div>
         <Table v-if="table_nav === 5" :columns="virtual_columns" :data="virtual_data" border></Table>
@@ -107,6 +109,7 @@
 
 <script>
 import demo_list from './listDemo'
+import services from '../../../api/services'
 export default {
   name: 'personalCenter',
   components: {
@@ -114,59 +117,224 @@ export default {
   data () {
     return {
       order_nav: 1,
-      table_nav: 1
+      table_nav: 1,
+      username: '',
+      billId: '',
+      email: '',
+      impReqCount: '',
+      reqCount: '',
+      todoOrderCount: '',
+      resCount: '',
+      order_list: [],
+      system_notice_list: [],
+      pubTime: '',
+      resource_alarm_list: [],
+      demand_alarm_list: [],
+      physical_data: [],
+      virtual_data: [],
+      demand_info_data: [],
+      projectList: [],
+      groupId: ''
     }
   },
   computed: {
-    order_list() {
-      if (this.order_nav === 1) {
-        return demo_list.todo_order_list
-      }
-      if (this.order_nav === 2) {
-        return demo_list.tofinish_order_list
-      }
-    },
-    system_notice_list() {
-      return demo_list.system_notice_list
-    },
-    resource_alarm_list() {
-      return demo_list.resource_alarm_list
-    },
-    demand_alarm_list() {
-      return demo_list.demand_alarm_list
-    },
     physical_columns() {
       return demo_list.physical_columns
-    },
-    physical_data() {
-      return demo_list.physical_data
     },
     virtual_columns() {
       return demo_list.virtual_columns
     },
-    virtual_data() {
-      return demo_list.virtual_data
-    },
     demand_info_columns() {
       return demo_list.demand_info_columns
     },
-    demand_info_data() {
-      return demo_list.demand_info_data
-    },
     important_columns() {
        return demo_list.important_columns
-    },
-    important_data() {
-      return demo_list.important_data
-    },
-    projectList() {
-      return [ { 'name': '一级测试开发平台', 'key': 1 }, { 'name': '内容计费', 'key': 2 }, { 'name': '4A', 'key': 3 }, { 'name': '网状网', 'key': 4 } ]
     }
   },
   mounted () {
-    console.dir(this.system_notice_list)
+    this.getUserInfo()
+    this.getGroupInfo()
+    this.getReqCountInfo()
+    this.getMacCountInfo()
+    this.getUndoOrder()
+    this.getVersionDeclaration()
+    this.getResMonitor()
+    this.getReqAler()
+    this.getImportReq()
+    this.getHostReport()
+    this.getConstructReq()
   },
   methods: {
+    groupIdChange() {
+      this.getVirReport()
+    },
+    getUserInfo() {
+      this.$http.get(services.personalCenter.getUserInfo).then(res => {
+        if (res && res.data) {
+          this.username = res.data.username
+          this.billId = res.data.billId
+          this.email = res.data.email
+        }
+      })
+    },
+    getGroupInfo() {
+      this.$http.get(services.personalCenter.getGroupInfo).then(res => {
+        if (res && res.data) {
+          this.projectList = res.data
+          this.groupId = this.projectList[0].groupId
+          this.getVirReport()
+        }
+      })
+    },
+    getReqCountInfo() {
+      this.$http.get(services.personalCenter.getReqCountInfo + '?action=getReqCountInfo').then(res => {
+        if (res && res.data && res.data.result === 'Y') {
+          this.impReqCount = res.data.impReqCount
+          this.reqCount = res.data.reqCount
+          this.todoOrderCount = res.data.todoOrderCount
+        } else {
+          this.impReqCount = ''
+          this.reqCount = ''
+          this.todoOrderCount = ''
+          this.$Message.warning(res.data.message)
+        }
+      })
+    },
+    getMacCountInfo() {
+      this.$http.get(services.personalCenter.getMacCountInfo + '?action=getMacCountInfo').then(res => {
+        if (res && res.data && res.data.result === 'Y') {
+          this.resCount = res.data.resCount
+        } else {
+          this.resCount = ''
+          this.$Message.warning(res.data.message)
+        }
+      })
+    },
+    getUndoOrder() {
+      this.$http.get(services.personalCenter.getUndoOrder + '?action=getUndoOrder').then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.orders) {
+          this.order_list = res.data.orders
+        } else {
+          this.order_list = []
+          this.$Message.warning(res.data.message)
+        }
+      })
+    },
+    getVersionDeclaration() {
+      this.$http.get(services.personalCenter.getVersionDeclaration + '?action=getVersionDeclaration').then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.logs) {
+          this.pubTime = res.data.pubTime
+          this.system_notice_list = res.data.logs
+        } else {
+          this.pubTime = ''
+          this.system_notice_list = []
+          this.$Message.warning(res.data.message)
+        }
+      })
+    },
+    getResMonitor() {
+      this.$http.get(services.personalCenter.getResMonitor + '?action=getResMonitor').then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.rows) {
+          this.resource_alarm_list = res.data.rows
+        } else if (res && res.data && res.data.result === 'N') {
+          this.resource_alarm_list = []
+          this.$Message.warning(res.data.message)
+        } else {
+          this.resource_alarm_list = []
+          this.$Message.warning('服务调用出错或无内容返回')
+        }
+      })
+    },
+    getReqAler() {
+      this.$http.get(services.personalCenter.getResMonitor + '?action=getReqAler').then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.alerts) {
+          this.demand_alarm_list = res.data.alerts
+        } else if (res && res.data && res.data.result === 'N') {
+          this.demand_alarm_list = []
+          this.$Message.warning(res.data.message)
+        } else {
+          this.demand_alarm_list = []
+          this.$Message.warning('服务调用出错或无内容返回')
+        }
+      })
+    },
+    getImportReq() {
+      this.$http.get(services.personalCenter.getImportReq + '?action=getImportReq').then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.reqs) {
+          this.important_data = res.data.reqs
+        } else if (res && res.data && res.data.result === 'N') {
+          this.important_data = []
+          this.$Message.warning(res.data.message)
+        } else {
+          this.important_data = []
+          this.$Message.warning('服务调用出错或无内容返回')
+        }
+      })
+    },
+    getHostReport() {
+      let page = 1
+      let size = 500
+      this.$http.get(services.personalCenter.getHostReport + '?action=getHostReport' + '&page=' + page + '&size=' + size).then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.data) {
+          this.physical_data = res.data.data
+        } else if (res && res.data && res.data.result === 'N') {
+          this.physical_data = []
+          this.$Message.warning(res.data.message)
+        } else {
+          this.physical_data = []
+          this.$Message.warning('服务调用出错或无内容返回')
+        }
+      })
+    },
+    getVirReport() {
+      let page = 1
+      let rows = 500
+      if (this.groupId) {
+        let group = this.groupId
+        this.$http.get(services.personalCenter.getVirReport + '?action=getVirReport' + '&page=' + page + '&rows=' + rows + '&group=' + group).then(res => {
+          if (res && res.data && res.data.result === 'Y' && res.data.rows) {
+            this.virtual_data = res.data.rows
+          } else if (res && res.data && res.data.result === 'N') {
+            this.virtual_data = []
+            this.$Message.warning(res.data.message)
+          } else {
+            this.virtual_data = []
+            this.$Message.warning('服务调用出错或无内容返回')
+          }
+        })
+      }
+    },
+    getConstructReq() {
+      this.$http.get(services.personalCenter.getConstructReq + '?action=getConstructReq').then(res => {
+        if (res && res.data && res.data.result === 'Y' && res.data.reqs) {
+          this.demand_info_data = res.data.reqs
+        } else if (res && res.data && res.data.result === 'N') {
+          this.demand_info_data = []
+          this.$Message.warning(res.data.message)
+        } else {
+          this.demand_info_data = []
+          this.$Message.warning('服务调用出错或无内容返回')
+        }
+      })
+    },
+    showPage(num) {
+      let access_token = this.$store.getters['user/getAccess_token'] || ''
+      if (access_token) {
+        if (num === 1) {
+          let url = 'http://10.12.1.20:9094/estimate/#/login'
+          window.location.href = url
+        } else if (num === 2) {
+          window.location.href = 'http://10.12.1.20:9094/PaaS/#/overview'
+        } else if (num === 3) {
+          window.location.href = 'http://10.12.1.20:9094/aialm/webframe/shdesktopui/WebAppFrameSet_new.jsp'
+        } else if (num === 4) {
+          window.location.href = 'http://10.12.1.20:9094/req_KANBAN'
+        }
+      } else {
+        this.$Message.warning('还未登录！')
+        this.$router.push({ name: 'login' })
+      }
+    }
   }
 }
 </script>
@@ -269,6 +437,7 @@ export default {
             margin-left: 1rem;
             .list-group-item{
               margin-top: 0.5rem;
+              cursor: pointer;
             }
           }
         }
@@ -336,6 +505,11 @@ export default {
         background: white;
         overflow-y:auto;
         border: 1px solid #f4f1f1;
+        .personalCenter-ivu-table-row{
+          .ivu-table-row{
+            cursor: pointer;
+          }
+        }
         .virtual-columns-get{
           height: 2rem;
           padding-top: 0.5rem;

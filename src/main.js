@@ -12,6 +12,7 @@ import installPlugin from '@/plugin'
 import './index.less'
 import '@/assets/icons/iconfont.css'
 import { HttpPlugin } from '../src/libs/http'
+import pbulicFunc from './assets/conf/publicFunc.js'
 Vue.use(iView)
 Vue.use(HttpPlugin)
 /**
@@ -26,6 +27,7 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
+Vue.prototype.$publicFunc = pbulicFunc
 /**
  * 注册指令
  */

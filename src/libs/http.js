@@ -1,4 +1,7 @@
 import axios from 'axios'
+import iView from 'iview'
+import router from '../router'
+import store from '../store'
 // http request 封装请求头拦截器
 const HttpPlugin = {
   install: (Vue) => {
@@ -6,8 +9,12 @@ const HttpPlugin = {
   }
 }
 axios.interceptors.request.use(config => {
-  console.log('request')
-  console.log(config)
+  // console.log(config)
+  let access_token = localStorage.getItem('access_token')
+  // console.dir('http~~~~~~~~~~' + access_token)
+  if (access_token) {
+    config.headers.Authorization = 'Bearer ' + JSON.parse(access_token)
+  }
  // 添加请求拦截器实现逻辑...
   // 若是有做鉴权token , 就给头部带上token
   // let token = storage.get('cmi-token')
@@ -36,6 +43,7 @@ axios.interceptors.request.use(config => {
 
 // http response 封装后台返回拦截器
 axios.interceptors.response.use(response => {
+  return response
   // console.log(response)
 // 当返回信息为未登录或者登录失效的时候重定向为登录页面
   //   if (response.data.code == 'W_100004' || response.data.message == '用户未登录或登录超时，请登录！') {
@@ -46,21 +54,32 @@ axios.interceptors.response.use(response => {
   //       } //从哪个页面跳转
   //     })
   //   }
-  if (typeof response.data === 'string') {
-    return JSON.parse(response.data)
-  } else {
-    return response
-  }
-}, error => {
-  // if (error.response) {
-  //   switch (error.response.status) {
-  //     case 401:
-  //       router.replace({
-  //         path: 'login',
-  //         query: { redirect: router.currentRoute.fullPath },
-  //       })
-  //   }
+  // if (typeof response.data === 'string') {
+  //   return JSON.parse(response.data)
+  // } else {
+  //   return response
   // }
+}, error => {
+  if (error && error.response) {
+    switch (error.response.status) {
+      case 401:
+        iView.Message.error({
+          content: '登陆人无权限或者认证过期，请重新登录!',
+          duration: 3
+        })
+        router.push({ name: 'home' })
+        store.dispatch('user/access_token', '')
+        localStorage.clear()
+        sessionStorage.clear()
+        break
+      case 500:
+        iView.Message.error({
+          content: '服务调用出错!',
+          duration: 3
+        })
+        break
+    }
+  }
   return Promise.reject(error)
 })
 export {

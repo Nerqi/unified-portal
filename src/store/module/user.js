@@ -3,36 +3,35 @@ export default {
   namespaced: true,
   state: {
     username: null,
-    token: null,
-    param: localStorage.getItem('param') ? localStorage.getItem('param') : null
+    access_token: localStorage.getItem('access_token') ? localStorage.getItem('access_token') : null
     // param: null
     // token: getToken(),
   },
   mutations: {
-    param (state, data) {
-      state.param = data
-      localStorage.setItem('param', JSON.stringify(data))
+    access_token (state, data) {
+      state.access_token = data
+      localStorage.setItem('access_token', JSON.stringify(data))
       // console.dir('store~~~~~~~~' + JSON.stringify(data))
-      setToken(JSON.stringify(data))
+      setToken(data)
     }
   },
   getters: {
-    getParam: (state) => {
-      const cache = localStorage.getItem('param')
+    getAccess_token: (state) => {
+      const cache = localStorage.getItem('access_token')
       let cacheData = null
       if (cache) {
         cacheData = JSON.parse(cache)
       }
-      if (state.param) {
-        return state.param
+      if (state.access_token) {
+        return state.access_token
       } else {
         return cacheData
       }
     }
   },
   actions: {
-    param (context, param) {
-      context.commit('param', param)
+    access_token (context, access_token) {
+      context.commit('access_token', access_token)
     }
   }
 }
