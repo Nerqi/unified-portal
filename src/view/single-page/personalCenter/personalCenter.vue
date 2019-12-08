@@ -35,7 +35,7 @@
     <div class="order">
       <div class="order-left">
         <div class="order-left-title">
-          <label @click="order_nav = 1">待办工单<p>6</p></label>
+          <label @click="order_nav = 1">待办工单<p>{{todoOrderCount}}</p></label>
           <!--<label @click="order_nav = 2">待完结工单<p>0</p></label>-->
         </div>
         <div class="order-left-main">

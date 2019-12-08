@@ -101,6 +101,7 @@ export default {
               if (res.data.access_token) {
                 this.$Message.success('登录成功')
                 this.$store.dispatch('user/access_token', res.data.access_token)
+                // this.$store.dispatch('user/user_info')
                 this.$router.push({ name: 'userGuide' })
               }
             }

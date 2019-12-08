@@ -30,14 +30,14 @@
         </DropdownMenu>
       </Dropdown>
       <Poptip trigger="hover" placement="bottom-end">
-        <Icon style="cursor:pointer;" type="ios-volume-up" color="#white" v-if="type === 'login'"/>
+        <Icon style="cursor:pointer;" type="ios-volume-up" color="#white" v-if="type === 'login' && access_token"/>
         <div class="content-main" slot="content">
-          <ul class="list-group" v-for="(item, index) in system_notice_list" :key="index">
+          <ul class="list-group">
             <li class="list-group-item">
-              <h4>{{item.A}}</h4>
-              <ul v-for="(child_item, child_index) in item.children" :key="child_index">
+              <h4>{{pubTime}} 一级系统测试管理平台系统更新公告</h4>
+              <ul v-for="(item, index) in system_notice_list" :key="index">
                 <li>
-                  {{child_item}}
+                  {{item}}
                 </li>
               </ul>
             </li>
@@ -46,14 +46,14 @@
       </Poptip>
       <Button type="primary" v-if="type === 'login'" @click="skip('login')" style="margin-right: 1rem; font-size: 0.5em">登录/注册</Button>
       <Poptip trigger="hover" placement="bottom-end">
-        <Icon style="cursor:pointer;" type="ios-volume-up" color="#128af6" v-if="type === 'main'"/>
+        <Icon style="cursor:pointer;" type="ios-volume-up" color="#128af6" v-if="type === 'main' && access_token"/>
         <div class="content-main" slot="content">
-          <ul class="list-group" v-for="(item, index) in system_notice_list" :key="index">
+          <ul class="list-group">
             <li class="list-group-item">
-              <h4>{{item.A}}</h4>
-              <ul v-for="(child_item, child_index) in item.children" :key="child_index">
+              <h4>{{pubTime}} 一级系统测试管理平台系统更新公告</h4>
+              <ul v-for="(item, index) in system_notice_list" :key="index">
                 <li>
-                  {{child_item}}
+                  {{item}}
                 </li>
               </ul>
             </li>
@@ -62,7 +62,7 @@
       </Poptip>
       <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="type === 'main'" @click="skip('addProject')"/>
       <Icon type="md-person" color="#128af6" v-if="type === 'main'"/>
-      <p v-if="type === 'main'" style="font-size: 0.5em">测试账号（集团一级系统)</p>
+      <p v-if="type === 'main'" style="font-size: 0.5em">{{user_info}}( {{groupName}} )</p>
       <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="confirm"/>
     </div>
     <!--<Modal v-model="model" @on-cancel="showModel(false)" footer-hide>-->
@@ -73,32 +73,42 @@
   </div>
 </template>
 <script>
-  // import services from '../../../api/services'
   import Menu from '../menu'
-  import demo_list from './listDemo'
+  // import demo_list from './listDemo'
+  import services from '../../../api/services'
   export default {
     name: 'HeaderBar',
     props: {
       type: {
         type: String,
-        default: '',
-        newRoute: '',
-        tmp_menu_list: [],
-        selected: false
+        default: ''
       }
     },
     data () {
       return {
-        // model: false
+        newRoute: '',
+        tmp_menu_list: [],
+        selected: false,
+        user_info: '',
+        groupName: '',
+        system_notice_list: [],
+        pubTime: ''
       }
     },
     computed: {
       menu_list() {
         return Menu
       },
-      system_notice_list() {
-        return demo_list.system_notice_list
+      access_token() {
+        return this.$store.getters['user/getAccess_token'] || ''
       }
+      // system_notice_list() {
+      //   return demo_list.system_notice_list
+      // }
+      // user_info() {
+      //   return this.getUserInfo
+      //   // return this.$store.getters['user/getUser_info'] || ''
+      // }
     },
     watch: {
       '$route' (newRoute) {
@@ -106,9 +116,42 @@
       }
     },
     mounted() {
+      if (this.type === 'main') {
+        this.getUserInfo()
+        this.getGroupInfo()
+      }
+      if (this.type === 'main' || (this.type === 'login' && this.access_token)) {
+        this.getVersionDeclaration()
+      }
       // this.tmp_menu_list = this.menu_list
     },
     methods: {
+      getUserInfo() {
+        this.$http.get(services.personalCenter.getUserInfo).then(res => {
+          if (res && res.data) {
+            this.user_info = res.data.username
+          }
+        })
+      },
+      getGroupInfo() {
+        this.$http.get(services.personalCenter.getGroupInfo).then(res => {
+          if (res && res.data) {
+            this.groupName = res.data[0].groupName
+          }
+        })
+      },
+      getVersionDeclaration() {
+        this.$http.get(services.personalCenter.getVersionDeclaration + '?action=getVersionDeclaration').then(res => {
+          if (res && res.data && res.data.result === 'Y' && res.data.logs) {
+            this.pubTime = res.data.pubTime
+            this.system_notice_list = res.data.logs
+          } else {
+            this.pubTime = ''
+            this.system_notice_list = []
+            this.$Message.warning(res.data.message)
+          }
+        })
+      },
       skip(type) {
         this.$router.push({ name: type })
         // let tmp = {
