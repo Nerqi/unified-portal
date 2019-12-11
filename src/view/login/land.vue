@@ -87,12 +87,14 @@ export default {
     submit(loginForm) {
       this.$refs[loginForm].validate((valid) => {
         if (valid) {
+          let iv = this.$publicFunc.randomString(16)
+          let encPassword = this.$publicFunc.encrypt(this.loginForm.password, iv)
+          // let CryptoJS_password = this.$publicFunc.encrypt(this.loginForm.password)
           let formData = new FormData()
-          let CryptoJS_password = this.$publicFunc.encrypt(this.loginForm.password)
           formData.append('username', this.loginForm.username)
-          formData.append('password', CryptoJS_password)
+          formData.append('password', encPassword)
           formData.append('verifyCode', this.loginForm.identifyCodes)
-          formData.append('grant_type', 'password')
+          formData.append('iv', iv)
           this.$http.post(services.login.LoginByUsername, formData).then(res => {
             if (res && res.data) {
               if (res.data.access_token) {

@@ -361,12 +361,23 @@ const PBULICFUNC = {
       callback()
     }
   },
+  // 生成随机数
+  randomString(len) {
+    len = len || 32
+    let $chars = 'ABCDEFGHIJGKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
+    let maxPos = $chars.length
+    let pwd = ''
+    for (let i = 0; i < len; i++) {
+      pwd += $chars.charAt(Math.floor(Math.random() * maxPos))
+    }
+    return pwd
+  },
   // 加密
-  encrypt(word) {
+  encrypt(word, iv) {
     let keyStr = 'abcdefgabcdefg12'
     let key = CryptoJS.enc.Utf8.parse(keyStr)
     let srcs = CryptoJS.enc.Utf8.parse(word)
-    let encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 })
+    let encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 })
     return encrypted.toString()
   },
   // 解密
