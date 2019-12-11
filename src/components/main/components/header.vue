@@ -91,7 +91,7 @@
       }
     },
     mounted() {
-      if (access_token) {
+      if (this.access_token) {
         this.getUserInfo()
         this.getGroupInfo()
       }
