@@ -1,5 +1,27 @@
 import CryptoJS from 'crypto-js'
 const PBULICFUNC = {
+  // 子系统集成跳转公共方法 10.12.1.20  10.248.68.27
+  showPage(num) {
+    if (num === 1) { // 评价管理系统
+      // let url = 'http://10.248.68.27:9094/estimate/#/login'
+      let num = (new Date().getTime())
+      let url = 'http://' + window.location.host + '/estimate/#/login?' + num
+      window.open(url)
+    } else if (num === 2) {
+      window.open('http://' + window.location.host + '/PaaS/#/overview')
+    } else if (num === 3) { // 一级系统测试管理平台
+      window.open('http://' + window.location.host + '/aialm/webframe/shdesktopui/WebAppFrameSet_new.jsp')
+    } else if (num === 4) { // 重点需求看板
+      window.open('http://' + window.location.host + '/req_KANBAN/')
+    } else if (num === 5) { // 容器管理系统
+      window.open('http://' + window.location.host + '/PaaS/#/overview')
+      // window.open('http://' + window.location.host + '/#/login')
+    } else if (num === 6) { // DevOps
+      window.open('http://' + window.location.host + '/paas/user/login') // window.open("/paas/user/login") http://10.248.68.27:9094/
+    } else if (num === 7) { // 电子看板
+      window.open('http://' + window.location.host + '/dzkb/#/login')
+    }
+  },
   // 将日期对象格式化成字符串
   formatDate(date, fmt) {
     fmt = fmt || 'yyyy-MM-dd'

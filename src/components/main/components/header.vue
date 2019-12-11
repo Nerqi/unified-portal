@@ -6,16 +6,17 @@
       <p class="header-p"><strong>一级开发测试平台</strong></p>
     </div>
     <div class="header-menu">
-      <a @click="skip('home')">首页</a>
+      <a @click="skip()">首页</a>
       <a @click="showPage(3)">一级系统测试管理平台</a>
       <a @click="showPage(1)">评价管理系统</a>
-      <a href="https://www.taobao.com/">容器管理系统</a>
+      <a @click="showPage(5)">容器管理系统</a>
       <a @click="showPage(4)">重点需求看板</a>
-      <a href="https://www.taobao.com/">Devops</a>
+      <a @click="showPage(6)">DevOps</a>
+      <a @click="showPage(7)">电子看板</a>
     </div>
     <div class="header-right">
-      <Dropdown @on-click="handleSelect" trigger="hover" @on-visible-change="visivle">
-        <Icon type="ios-list" style="cursor:pointer;" size="35" color="#128af6" v-if="type === 'main'"/>
+      <Dropdown @on-click="handleSelect" trigger="hover" @on-visible-change="visivle" v-if="access_token">
+        <Icon type="ios-list" style="cursor:pointer;" size="35" color="#128af6"/>
         <DropdownMenu slot="list" v-for="item in menu_list" :key="item.menu_url">
           <DropdownItem v-if="!item.children_list" :name="item.menu_url" ref="list">{{item.menu_name}}</DropdownItem>
           <Dropdown placement="right-start" :name="item.menu_url" v-if="item.children_list">
@@ -29,47 +30,28 @@
           </Dropdown>
         </DropdownMenu>
       </Dropdown>
-      <Poptip trigger="hover" placement="bottom-end">
-        <Icon style="cursor:pointer;" type="ios-volume-up" color="#white" v-if="type === 'login' && access_token"/>
-        <div class="content-main" slot="content">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <h4>{{pubTime}} 一级系统测试管理平台系统更新公告</h4>
-              <ul v-for="(item, index) in system_notice_list" :key="index">
-                <li>
-                  {{item}}
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </Poptip>
-      <Button type="primary" v-if="type === 'login'" @click="skip('login')" style="margin-right: 1rem; font-size: 0.5em">登录/注册</Button>
-      <Poptip trigger="hover" placement="bottom-end">
-        <Icon style="cursor:pointer;" type="ios-volume-up" color="#128af6" v-if="type === 'main' && access_token"/>
-        <div class="content-main" slot="content">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <h4>{{pubTime}} 一级系统测试管理平台系统更新公告</h4>
-              <ul v-for="(item, index) in system_notice_list" :key="index">
-                <li>
-                  {{item}}
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </Poptip>
-      <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="type === 'main'" @click="skip('addProject')"/>
-      <Icon type="md-person" color="#128af6" v-if="type === 'main'"/>
-      <p v-if="type === 'main'" style="font-size: 0.5em">{{user_info}}( {{groupName}} )</p>
-      <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="type === 'main'" @click="confirm"/>
+      <!-- 生产环境注销掉><-->
+      <!--<Poptip trigger="hover" placement="bottom-end">-->
+        <!--<Icon style="cursor:pointer;" type="ios-volume-up" :color="type === 'login'? 'white' : '#128af6'"/>-->
+        <!--<div class="content-main" slot="content">-->
+          <!--<ul class="list-group">-->
+            <!--<li class="list-group-item">-->
+              <!--<h4>{{pubTime}} 一级系统测试管理平台系统更新公告</h4>-->
+              <!--<ul v-for="(item, index) in system_notice_list" :key="index">-->
+                <!--<li>-->
+                  <!--{{item}}-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</Poptip>-->
+      <Button type="primary" v-if="!access_token" @click="skip('login')" style="margin-right: 1rem; font-size: 0.5em">登录/注册</Button>
+      <Icon style="cursor:pointer;" type="md-add-circle" color="#128af6" v-if="access_token" @click="skip('addProject')"/>
+      <Icon type="md-person" color="#128af6" v-if="access_token"/>
+      <p v-if="access_token" style="font-size: 0.5em">{{user_info}}( {{groupName}} )</p>
+      <Icon style="cursor:pointer;" type="ios-power" color="#128af6" v-if="access_token" @click="confirm"/>
     </div>
-    <!--<Modal v-model="model" @on-cancel="showModel(false)" footer-hide>-->
-      <!--<p style="margin-top: 1rem">一级系统测试管理平台于2019-10-30 20:00进行升级上线，请勿进行任何操作！</p>-->
-      <!--<p style="margin-top: 1rem">一级系统测试管理平台本次上线新增IP到期提醒</p>-->
-      <!--<p style="margin-top: 1rem">一级系统测试管理平台本次上线新增云存储到期提醒</p>-->
-    <!--</Modal>-->
   </div>
 </template>
 <script>
@@ -102,13 +84,6 @@
       access_token() {
         return this.$store.getters['user/getAccess_token'] || ''
       }
-      // system_notice_list() {
-      //   return demo_list.system_notice_list
-      // }
-      // user_info() {
-      //   return this.getUserInfo
-      //   // return this.$store.getters['user/getUser_info'] || ''
-      // }
     },
     watch: {
       '$route' (newRoute) {
@@ -116,20 +91,18 @@
       }
     },
     mounted() {
-      if (this.type === 'main') {
+      if (access_token) {
         this.getUserInfo()
         this.getGroupInfo()
       }
-      if (this.type === 'main' || (this.type === 'login' && this.access_token)) {
-        this.getVersionDeclaration()
-      }
+      // this.getVersionDeclaration() // 生产环境注销
       // this.tmp_menu_list = this.menu_list
     },
     methods: {
       getUserInfo() {
         this.$http.get(services.personalCenter.getUserInfo).then(res => {
           if (res && res.data) {
-            this.user_info = res.data.username
+            this.user_info = res.data.employeeName
           }
         })
       },
@@ -141,7 +114,7 @@
         })
       },
       getVersionDeclaration() {
-        this.$http.get(services.personalCenter.getVersionDeclaration + '?action=getVersionDeclaration').then(res => {
+        this.$http.get(services.header.getHeaderVersionDeclaration + '?action=getVersionDeclaration').then(res => {
           if (res && res.data && res.data.result === 'Y' && res.data.logs) {
             this.pubTime = res.data.pubTime
             this.system_notice_list = res.data.logs
@@ -153,30 +126,22 @@
         })
       },
       skip(type) {
-        this.$router.push({ name: type })
-        // let tmp = {
-        //   phoneNum: '13596459384'
-        // }
-        // this.$http.post(services.getValidation.getValidation, tmp).then(res => {}) // demo接口
+        if (type) {
+          this.$router.push({ name: type })
+        } else {
+          let access_token = this.$store.getters['user/getAccess_token'] || ''
+          if (access_token) {
+            this.$router.push({ name: 'home' })
+          } else {
+            this.$router.push({ name: 'home' })
+          }
+        }
       },
-      // showModel(value) {
-      //   this.model = value
-      // },
       handleSelect (name) {
         this.$router.push({ name: name })
       },
       visivle(e) {
         if (e === true) {
-          // if (this.newRoute.name) {
-          //   this.tmp_menu_list = this.menu_list
-          //   for (let i = 0; i < this.tmp_menu_list.length; i++) {
-          //     if (this.tmp_menu_list[i].children_list && this.tmp_menu_list[i].children_list.length) {
-          //       if (this.tmp_menu_list[i].name === this.newRoute.name) { this.tmp_menu_list[i].selected = true } else { this.tmp_menu_list[i].selected = false }
-          //       for (let j = 0; j < this.tmp_menu_list[i].children_list.length; j++) {
-          //         if (this.tmp_menu_list[i].children_list[j].name === this.newRoute.name) { this.tmp_menu_list[i].children_list[j].selected = true } else { this.tmp_menu_list[i].children_list[j].selected = false }
-          //       }
-          //     }
-          //   }}
           if (!this.newRoute) {
             this.$refs.list[0].selected = true
           }
@@ -211,15 +176,28 @@
       showPage(num) {
         let access_token = this.$store.getters['user/getAccess_token'] || ''
         if (access_token) {
-          if (num === 1) {
-            let url = 'http://10.12.1.20:9094/estimate/#/login'
-            window.location.href = url
-          } else if (num === 2) {
-            window.location.href = 'http://10.12.1.20:9094/PaaS/#/overview'
-          } else if (num === 3) {
-            window.location.href = 'http://10.12.1.20:9094/aialm/webframe/shdesktopui/WebAppFrameSet_new.jsp'
-          } else if (num === 4) {
-            window.location.href = 'http://10.12.1.20:9094/req_KANBAN'
+          if (num === 6) { // DevOps
+            let tmp = 'loginName=null&password=6CB63DC5E23D8F30BC937BB8D36AD620&checkCode=FSAD'
+            this.$http.post(services.DevOpsLogin.paas, tmp).then(res => {
+              this.$publicFunc.showPage(num)
+            }).catch(e => {
+              this.$router.push({ name: 'login' })
+            })
+          }
+          if (num === 7) { // 电子看板
+            let tmp = {
+              email: 'asdasd@asdfad',
+              imageValue: 'dsfc',
+              password: '3MlKoFxstIerVft4v0dkEw=='
+            }
+            this.$http.post(services.DevOpsLogin.dzkb, tmp).then(res => {
+              this.$publicFunc.showPage(num)
+            }).catch(e => {
+              this.$router.push({ name: 'login' })
+            })
+          }
+          if (num !== 6 && num !== 7) {
+            this.$publicFunc.showPage(num)
           }
         } else {
           this.$Message.warning('还未登录！')
@@ -292,7 +270,7 @@
       align-items: center;
       flex-direction: row;
       height: 100%;
-      width: 50%;
+      width: 55%;
       a{
         font-size: 1rem;
         margin-left: 2rem;
@@ -316,7 +294,7 @@
     }
     .header-right{
       height: 100%;
-      width: 25%;
+      width: 20%;
       display: flex;
       align-items: center;
       justify-content: flex-end;

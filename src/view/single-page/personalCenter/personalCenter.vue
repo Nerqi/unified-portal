@@ -320,16 +320,7 @@ export default {
     showPage(num) {
       let access_token = this.$store.getters['user/getAccess_token'] || ''
       if (access_token) {
-        if (num === 1) {
-          let url = 'http://10.12.1.20:9094/estimate/#/login'
-          window.location.href = url
-        } else if (num === 2) {
-          window.location.href = 'http://10.12.1.20:9094/PaaS/#/overview'
-        } else if (num === 3) {
-          window.location.href = 'http://10.12.1.20:9094/aialm/webframe/shdesktopui/WebAppFrameSet_new.jsp'
-        } else if (num === 4) {
-          window.location.href = 'http://10.12.1.20:9094/req_KANBAN'
-        }
+        this.$publicFunc.showPage(num)
       } else {
         this.$Message.warning('还未登录！')
         this.$router.push({ name: 'login' })

@@ -43,7 +43,8 @@
           </Row>
         </FormItem>
         <FormItem class="login-info-footer">
-          <Button type="primary" class="login-info-footer-btn" @click="submit('addProjectForm')">提交</Button>
+          <Button type="primary" class="login-info-footer-btn" @click="submit('addProjectForm')" style="margin-right: 5px">提交</Button>
+          <Button class="login-info-footer-btn" @click="canel">返回</Button>
         </FormItem>
       </Form>
     </div>
@@ -123,6 +124,9 @@ export default {
           this.$Message.warning('请完善项目组信息!')
         }
       })
+    },
+    canel() {
+      this.$emit('loginNav', 2)
     }
   }
 }
@@ -148,10 +152,16 @@ export default {
         text-align: center;
       }
       .login-info-footer{
-        text-align: center;
-        .login-info-footer-btn{
-          width: 66.56%;
-          font-size: medium
+        width: 100%;
+        .ivu-form-item-content{
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          width: 100%;
+          .login-info-footer-btn{
+            width: 33%;
+            font-size: medium
+          }
         }
       }
     }

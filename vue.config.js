@@ -75,11 +75,11 @@ module.exports = {
     port: 8080,
     proxy: { // 设置代理
       '/aialm': {
-        target: 'http://10.12.1.30:28080/',
+        target: 'http://10.248.68.27:9094/', // 生产10.248.68.27:9094   测试10.12.1.30:28080
         changeOrigin: true
       },
       '/oauth': {
-        target: 'http://10.12.1.20:9094/',
+        target: 'http://10.248.68.27:9094/', // 生产10.248.68.27:9094   测试10.12.1.20:9094
         changeOrigin: true
       }
     }

@@ -1,10 +1,10 @@
 <template>
   <Layout class="layout">
-    <Header :style="{height: headerHeight}">
-      <HeaderBar :type="type"></HeaderBar>
-    </Header>
+    <!--<Header :style="{height: headerHeight}">-->
+      <!--<HeaderBar :type="type"></HeaderBar>-->
+    <!--</Header>-->
     <Content class="content">
-        <Carousel class="content-swip" v-model="carouselValue" loop  :autoplaySpeed="autoplaySpeed" trigger="click" arrow="always">
+        <Carousel class="content-swip" v-model="carouselValue" loop  autoplay :autoplaySpeed="autoplaySpeed" trigger="click" arrow="always">
           <CarouselItem class="demo-carousel">
             <div class="img-xys1" :style="{height: imgHeight}">
               <div class="img-xys1-text">
@@ -68,9 +68,9 @@
         </div>
       </div>
     </Content>
-    <Footer :style="{height: foooterHeight}">
-      <FooterBar></FooterBar>
-    </Footer>
+    <!--<Footer :style="{height: foooterHeight}">-->
+      <!--<FooterBar></FooterBar>-->
+    <!--</Footer>-->
   </Layout>
 </template>
 

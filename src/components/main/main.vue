@@ -5,7 +5,8 @@
     </Header>
     <!--<div>{{fullWidth}}</div>-->
     <Layout>
-      <Sider class="sider" :style="{height: fullHeight, minWidth: menuWidth}">
+      <Home v-if="type === 'home'"></Home>
+      <Sider class="sider" :style="{height: fullHeight, minWidth: menuWidth}" v-show="type === 'main'">
         <Menu theme="light" width="auto" ref="menu" @on-select="handleSelect" :active-name="activeName" :open-names="openName" accordion>
           <div v-for="item in menu_list" :key="item.menu_url">
             <MenuItem v-if="!item.children_list" :name="item.menu_url"><Icon :type="item.menu_icon" />{{item.menu_name}}</MenuItem>
@@ -19,7 +20,7 @@
           </div>
         </Menu>
       </Sider>
-      <Content style="background-color: #ffffff;" :style="{height: fullHeight}">
+      <Content style="background-color: #ffffff;" :style="{height: fullHeight}" v-show="type === 'main'">
         <router-view></router-view>
       </Content>
     </Layout>
@@ -29,6 +30,7 @@
   </Layout>
 </template>
 <script>
+  import Home from '../../view/home/home'
   import HeaderBar from './components/header'
   import FooterBar from '../../components/main/components/footer'
   import Menu from './menu'
@@ -36,7 +38,8 @@
     name: 'Main',
     components: {
       HeaderBar,
-      FooterBar
+      FooterBar,
+      Home
     },
     data () {
       return {
@@ -58,6 +61,12 @@
     },
     watch: {
       '$route' (newRoute) {
+        if (newRoute.name === 'home') {
+          this.type = 'home'
+        } else {
+          this.type = 'main'
+        }
+        // console.dir('main_type~~~~~~~~' + this.type)
         let tmp = newRoute.name.split('-')
         if (tmp[0] === 'url') {
           this.openName = ['url']
@@ -71,6 +80,12 @@
       }
     },
     created() {
+      // console.dir(this.$router.history.current.name)
+      if (this.$router.history.current.name === 'home') {
+        this.type = 'home'
+      } else {
+        this.type = 'main'
+      }
       this.activeName = 'userGuide'
     },
     mounted () {},

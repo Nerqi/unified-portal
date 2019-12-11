@@ -6,7 +6,7 @@
           <p>软件产品</p>
           <a @click="showPage(3)">一级测试系统管理平台</a>
           <a @click="showPage(1)">评价管理系统</a>
-          <a href="https://www.taobao.com/">容器管理系统</a>
+          <a @click="showPage(5)">容器管理系统</a>
           <a @click="showPage(4)">重点需求看板</a>
         </div>
         <div class="footer-main-item">
@@ -14,12 +14,12 @@
           <a @click="down('AIALM_handbook.doc')">测试开发平台操作手册</a>
           <a @click="down('INTEGRATE_HANDBOOK.doc')">联调管理操作手册</a>
           <a @click="down('WECHAT_HANDBOOK.doc')">微信企业号操作手册</a>
-          <a @click="down('VPN_handbook.docx')">VPN使用手册</a>
+          <a @click="down('VpnClientManual.rar')">VPN使用手册</a>
         </div>
         <div class="footer-main-item">
           <p >联系我们</p>
           <a>邮箱：limian@asiainfo.com</a>
-          <a>热线：23456789010</a>
+          <a>热线：13910560150</a>
         </div>
         <div class="footer-main-item" style="text-align: center">
           <p>企业微信号</p>
@@ -59,23 +59,19 @@ export default {
   methods: {
     down(type) {
       const elemIF = document.createElement(`iframe`)
-      elemIF.src = services.userManual.downAttach + '?action=downHandBook' + '&fileName=' + type + '&uid=liuchao'
+      let access_token = this.$store.getters['user/getAccess_token'] || ''
+      if (access_token) {
+        elemIF.src = services.userManual.downAttach + '?action=downHandBook' + '&fileName=' + type + '&uid=liuchao' // uid=probation
+      } else {
+        elemIF.src = services.userManual.downAttach + '?action=downHandBook' + '&fileName=' + type + '&uid=probation' // uid=probation
+      }
       elemIF.style.display = `none`
       document.body.appendChild(elemIF)
     },
     showPage(num) {
       let access_token = this.$store.getters['user/getAccess_token'] || ''
       if (access_token) {
-        if (num === 1) {
-          let url = 'http://10.12.1.20:9094/estimate/#/login'
-          window.location.href = url
-        } else if (num === 2) {
-          window.location.href = 'http://10.12.1.20:9094/PaaS/#/overview'
-        } else if (num === 3) {
-          window.location.href = 'http://10.12.1.20:9094/aialm/webframe/shdesktopui/WebAppFrameSet_new.jsp'
-        } else if (num === 4) {
-          window.location.href = 'http://10.12.1.20:9094/req_KANBAN'
-        }
+        this.$publicFunc.showPage(num)
       } else {
         this.$Message.warning('还未登录！')
         this.$router.push({ name: 'login' })

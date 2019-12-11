@@ -9,7 +9,7 @@
         <FormItem prop="username">
           <Row>
             <Col span="16">
-              <Input placeholder="请输入用户名" v-model="loginForm.username"></Input>
+              <Input placeholder="请输入用户名" v-model="loginForm.username" autocomplete="off"></Input>
             </Col>
           </Row>
         </FormItem>
@@ -74,15 +74,12 @@ export default {
     /* 获取验证码 **/
     getVerificationCode() {
       this.requestCodeFlag = true
-      let num = Math.ceil(Math.random() * 10)
+      let num = (new Date().getTime())
       this.$http.get(services.login.CreateCodeImage + '?' + num).then(res => {
         if (res && res.data) {
           this.codeUrl = res.data
         }
       })
-      // setTimeout(() => {
-      //   this.codeUrl = 'res.img'
-      // }, 500)
     },
     loginNavToSecond() {
       this.$emit('loginNav', 2)
@@ -107,6 +104,7 @@ export default {
             }
             if (res && res.data && res.data.ok === 0) {
               this.$Message.warning(res.data.msg)
+              this.getVerificationCode()
             }
           })
         } else {

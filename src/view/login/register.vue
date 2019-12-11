@@ -77,7 +77,8 @@
           </Row>
         </FormItem>
         <FormItem class="login-info-footer">
-          <Button type="primary" class="login-info-footer-btn" @click="submit('registerForm')">注册</Button>
+          <Button type="primary" class="login-info-footer-btn" @click="submit('registerForm')" style="margin-right: 5px">注册</Button>
+          <Button class="login-info-footer-btn" @click="canel">返回</Button>
         </FormItem>
       </Form>
       <div class="form-right">
@@ -216,6 +217,9 @@ export default {
           this.$Message.warning('请完善注册信息!')
         }
       })
+    },
+    canel() {
+      this.$emit('loginNav', 1)
     }
   }
 }
@@ -244,10 +248,11 @@ export default {
           width: 100%;
           .ivu-form-item-content{
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: row;
+            justify-content: flex-end;
             width: 100%;
             .login-info-footer-btn{
-              width: 87.36%;
+              width: 43%;
               font-size: medium
             }
           }

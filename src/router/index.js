@@ -28,60 +28,23 @@ router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
   // const token = getToken()
   const access_token = store.state.user.access_token
-  // console.dir('route~~~~~~~~~~' + access_token)
+  // console.dir('route~~~~~~~~~~' + to.name)
   if (!access_token && to.name === 'login') {
     next()
   } else if (!access_token && to.name === 'home') {
     next()
   } else if (!access_token && to.name !== 'login' && to.name !== 'home') {
-    next('home')
+    next('login')
   } else if (access_token && to.name === 'login') {
-    next('/home/userGuide')
+    next('/pages/userGuide')
   } else {
     if (access_token && to.name !== 'login') {
       next()
     }
   }
-  // if (!token && !param) {
-  //   // next()
-  // } else {
-  //   next({
-  //     name: 'login'
-  //   })
-  // }
-  // next()
-  // if (!token && to.name !== LOGIN_PAGE_NAME) {
-  //   // 未登录且要跳转的页面不是登录页
-  //   next({
-  //     name: LOGIN_PAGE_NAME // 跳转到登录页
-  //   })
-  // } else if (!token && to.name === LOGIN_PAGE_NAME) {
-  //   // 未登录且要跳转的页面是登录页
-  //   next() // 跳转
-  // } else if (token && to.name === LOGIN_PAGE_NAME) {
-  //   // 已登录且要跳转的页面是登录页
-  //   next({
-  //     name: homeName // 跳转到homeName页
-  //   })
-  // } else {
-  //   if (store.state.user.hasGetInfo) {
-  //     turnTo(to, store.state.user.access, next)
-  //   } else {
-  //     store.dispatch('getUserInfo').then(user => {
-  //       // 拉取用户信息，通过用户权限和跳转的页面的name来判断是否有权限访问;access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
-  //       turnTo(to, user.access, next)
-  //     }).catch(() => {
-  //       setToken('')
-  //       next({
-  //         name: 'login'
-  //       })
-  //     })
-  //   }
-  // }
 })
 
 router.afterEach(to => {
-  // setTitle(to, router.app)
   iView.LoadingBar.finish()
   window.scrollTo(0, 0)
 })

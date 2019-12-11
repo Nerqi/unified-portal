@@ -4,6 +4,10 @@ export default {
   userManual: {
     downAttach: '/aialm/business/com.ai.action.DownHandBook' // 在建需求展示
   },
+  // 顶部菜单 获取公告
+  header: {
+    getHeaderVersionDeclaration: '/aialm/business/com.unified.web.VersionAction' // 顶部公告
+  },
   // 个人中心
   personalCenter: {
     getUserInfo: '/oauth/api/userinfo', // 获取人员信息
@@ -21,6 +25,7 @@ export default {
   },
   // 登陆注册
   login: {
+    checkToken: '/oauth/api/checkToken', // 检查认证token
     CreateCodeImage: '/oauth/api/verify/createCodeImage', // 获取验证码
     LoginByUsername: '/oauth/api/login', // 登录
     getUserInfo: '/oauth/api/user/account', // 获取登陆人信息
@@ -31,5 +36,10 @@ export default {
     createAccount: '/oauth/api/register/createAccount', // 注册
     getDepartments: '/oauth/api/group/getDepartments', // 查询所有部门
     createGroup: '/oauth/api/group/createGroup' // 创建项目组
+  },
+  // DevOps  电子看板  单点登录跳转接口
+  DevOpsLogin: {
+    dzkb: '/dzkb/user/login',
+    paas: '/paas/user/verifyLoginParams.action'
   }
 }

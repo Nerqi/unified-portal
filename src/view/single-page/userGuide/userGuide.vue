@@ -103,7 +103,7 @@ export default {
     skip(name) {
       if (name) {
         if (name === 'windowOpen') {
-          window.location = 'https://www.taobao.com/'
+          window.open('http://' + window.location.host + '/req_KANBAN/')
         } else {
           this.$router.push({ name: name })
         }

@@ -27,20 +27,25 @@ export default [
     },
     component: () => import('@/view/login/login.vue')
   },
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   meta: {
+  //     title: '登录前首页',
+  //     hideInMenu: true
+  //   },
+  //   component: () => import('@/view/home/home.vue')
+  // },
   {
-    path: '/home',
-    name: 'home',
-    meta: {
-      title: '登录前首页',
-      hideInMenu: true
-    },
-    component: () => import('@/view/home/home.vue')
-  },
-  {
-    path: '/home',
-    name: '_pages',
+    path: '/pages',
+    name: 'pages',
     component: Main,
     children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('@/view/home/home.vue')
+      },
       {
         path: 'userGuide',
         name: 'userGuide',

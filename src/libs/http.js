@@ -9,6 +9,7 @@ const HttpPlugin = {
   }
 }
 axios.interceptors.request.use(config => {
+  iView.LoadingBar.start()
   // console.log(config)
   let access_token = localStorage.getItem('access_token')
   // console.dir('http~~~~~~~~~~' + access_token)
@@ -43,6 +44,7 @@ axios.interceptors.request.use(config => {
 
 // http response 封装后台返回拦截器
 axios.interceptors.response.use(response => {
+  iView.LoadingBar.finish()
   return response
   // console.log(response)
 // 当返回信息为未登录或者登录失效的时候重定向为登录页面
@@ -67,7 +69,7 @@ axios.interceptors.response.use(response => {
           content: '登陆人无权限或者认证过期，请重新登录!',
           duration: 3
         })
-        router.push({ name: 'home' })
+        router.push({ name: 'login' })
         store.dispatch('user/access_token', '')
         localStorage.clear()
         sessionStorage.clear()

@@ -33,6 +33,20 @@ Vue.prototype.$publicFunc = pbulicFunc
  */
 importDirective(Vue)
 Vue.directive('clickOutside', clickOutside)
+if (window.NodeList && !NodeList.prototype.forEach) {
+  NodeList.prototype.forEach = Array.prototype.forEach
+}
+/* eslint no-extend-native: ["error", { "exceptions": ["Array"] }] */
+if (typeof Array.find === 'undefined') {
+  Array.prototype.find = function(fn) {
+    for (let i in this) {
+      if (fn(this[i], i, this) === true) {
+        return this[i]
+      }
+    }
+    return undefined
+  }
+}
 
 /* eslint-disable no-new */
 new Vue({
