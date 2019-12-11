@@ -17,7 +17,7 @@ import Main from '@/components/main'
  */
 
 export default [
-  { path: '', redirect: '/home' },
+  { path: '', redirect: '/pages/home' },
   {
     path: '/login',
     name: 'login',
